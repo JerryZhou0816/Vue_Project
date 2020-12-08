@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="main">
     <Header></Header>
     <router-view></router-view>
@@ -24,3 +25,18 @@ export default {
   background: #ededed;
 }
 </style>
+=======
+  <div id="app">
+    <router-link to="/login">点击我</router-link>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "",
+};
+</script>
+
+<style lang="less" scoped></style>
+>>>>>>> 登录页
