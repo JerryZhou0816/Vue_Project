@@ -1,27 +1,30 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
-<<<<<<< HEAD
 import AllGoods  from '../views/AllGoods'
 const routes = [{
   path:'/allgoods',
   component:AllGoods
 }
 ]
-=======
 
 import Detail from '../views/Detail'
 // const Detail = () => import('../views/Detail')
->>>>>>> origin/pengshuai
 import Home from "../views/Home";
+import AllGoods from '../views/Detail'
 
-const routes = [{
+const routes = [
+  {
     path: '/detail',
     component: Detail
   },
   {
     path: "/home",
     component: Home,
+  },
+  {
+    path: "/allgoods",
+    component: AllGoods,
   },
   {
     path: "/",

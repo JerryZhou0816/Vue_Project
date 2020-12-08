@@ -1,2 +1,2 @@
 import AllGoods from '../views/AllGoods'
-export default[]
+export default{}
