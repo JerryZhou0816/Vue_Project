@@ -5,12 +5,20 @@ Vue.use(VueRouter);
 
 import Detail from '../views/Detail'
 // const Detail = () => import('../views/Detail')
+import Home from "../views/Home";
 
 const routes = [{
     path: '/detail',
     component: Detail
-  }
-
+  },
+  {
+    path: "/home",
+    component: Home,
+  },
+  {
+    path: "/",
+    redirect: "/home",
+  },
 ];
 
 const router = new VueRouter({

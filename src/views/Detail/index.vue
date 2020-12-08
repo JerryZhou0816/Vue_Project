@@ -4,27 +4,25 @@
     <div class="shop">
       <!-- 图片列表 -->
       <div class="imageList">
+        <!-- @click="changeState(index)" -->
+        <!-- :class="flag === index ? 'active' : ''" -->
         <img
-          @click="changeBorder"
-          :class="flag ? 'active' : ''"
+          @click="changeState(0)"
+          :class="flag === 0 ? 'active' : ''"
           src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
         />
         <img
-          @click="changeBorder"
-          :class="flag ? 'active' : ''"
-          src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
-        />
-        <img
-          @click="changeBorder"
-          :class="flag ? 'active' : ''"
-          src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
+          @click="changeState(1)"
+          :class="flag === 1 ? 'active' : ''"
+          src="https://resource.smartisan.com/resource/1501eaf68c9771e5599eec45a5f6320a.jpg"
         />
       </div>
       <!-- 大图 -->
       <div class="bigImage">
-        <img
+        <!-- <img
           src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
-        />
+        /> -->
+        <img :src="bigImage[index].src" />
       </div>
       <!-- 右 -->
       <div class="rightContainer">
@@ -54,10 +52,10 @@
           ></el-input-number> -->
         </div>
         <div class="bottom">
-          <el-button type="primary" size="medium" class="btn"
+          <el-button type="primary" size="medium" class="btn" @click="addCart"
             >加入购物车</el-button
           >
-          <el-button class="btn">现在购买</el-button>
+          <el-button class="btn" @click="toCheckout">现在购买</el-button>
           <!-- <div class="btn1">加入购物车</div>
           <div class="btn">现在购买</div> -->
         </div>
@@ -81,15 +79,35 @@ export default {
   name: "",
   data() {
     return {
-      flag: false,
+      flag: 0,
       count: 1,
+      index: 0,
       //   num: 1,
+      // defaultIndex: 0, //这个数据是图片下标，控制显示的图片是哪张，
+      // 大图切换假
+      bigImage: [
+        {
+          src:
+            "https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg",
+        },
+        {
+          src:
+            "https://resource.smartisan.com/resource/1501eaf68c9771e5599eec45a5f6320a.jpg",
+        },
+      ],
     };
   },
   methods: {
-    changeBorder() {
-      this.flag = true;
+    // 点击添加active类/改变大图
+    changeState(index) {
+      this.index = index;
+      this.flag = -1;
+      this.flag = index;
+      //   console.log(this.flag);
+      //   console.log(index);
     },
+
+    //数量加减
     changeNum(type) {
       if (type) {
         this.count = this.count + 1;
@@ -99,12 +117,13 @@ export default {
         }
       }
     },
+    //去结算页面
+    toCheckout() {},
+    //添加购物车
+
     // handleChange(value) {
     //   console.log(value);
     // },
-    // addNum(){
-
-    // }
   },
 };
 </script>
@@ -141,6 +160,7 @@ export default {
         height: 80px;
         border: 1px solid #e6e6e6;
         border-radius: 5px;
+        margin-bottom: 6px;
         &.active {
           border: 3px solid #e6e6e6;
           box-sizing: border-box;
@@ -160,6 +180,7 @@ export default {
     }
     .rightContainer {
       position: relative;
+      left: 20px;
       top: 40px;
       width: 450px;
       .top {
@@ -203,11 +224,11 @@ export default {
           color: #999;
         }
         .sub {
-          position: relative;
-          top: 25px;
+          // position: relative;
+          // top: 25px;
           width: 25px;
           height: 25px;
-          line-height: 30px;
+          line-height: 25px;
           text-align: center;
           border: 1px solid #999;
           border-radius: 50%;
@@ -215,13 +236,15 @@ export default {
           font-weight: 700;
           color: #999;
           box-shadow: 0px 0px 10px 2px #e6e6e6;
+          box-sizing: border-box;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
         }
         .add {
-          position: relative;
-          top: 25px;
           width: 25px;
           height: 25px;
-          line-height: 30px;
+          line-height: 25px;
           text-align: center;
           border: 1px solid #999;
           border-radius: 50%;
@@ -229,6 +252,10 @@ export default {
           font-weight: 700;
           color: #999;
           box-shadow: 0px 0px 10px 2px #e6e6e6;
+          box-sizing: border-box;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
         }
       }
       //   .buttom {
