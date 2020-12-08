@@ -5,17 +5,22 @@
       <header>
         <!-- logo图标 -->
         <div class="logo">
-          <a href="##" title="Xamll商城"></a>
+          <router-link to="/" title="Xamll商城"></router-link>
         </div>
         <!-- 搜索框，全部商品以及登录 -->
         <div class="rightBox">
           <div>
-            <el-input placeholder="请输入商品信息"></el-input>
+            <el-input
+              v-model="searchInfo"
+              placeholder="请输入商品信息"
+            ></el-input>
             <i class="el-icon-search search"></i>
           </div>
           <div>
-            <a href="##">全部商品</a>
+            <router-link to="/allgoods"> 全部商品</router-link>
           </div>
+          <a href="javascript:;" @click="toLogin">登录</a>
+
           <i class="xian"></i>
           <!-- 登录下拉 -->
           <div class="user">
@@ -52,10 +57,10 @@
         <div class="navSub">
           <ul class="navList">
             <li>
-              <a href="##">首页</a>
+              <router-link to="/">首页</router-link>
             </li>
             <li>
-              <a href="##">全部</a>
+              <router-link to="/allgoods">全部</router-link>
             </li>
             <li>
               <a href="##">品牌周边</a>
@@ -76,12 +81,23 @@
         </div>
       </nav>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
   name: "headerIndex",
+  data() {
+    return {
+      searchInfo: "",
+    };
+  },
+  methods: {
+    toLogin() {
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
 

@@ -18,8 +18,12 @@
       </div>
       <!-- 全部商品分类样式 -->
       <div class="goods clearfix">
-       
-          <div class="goodsItem" @mouseenter="enterDiv" @mouseleave="leaveDiv" translate="">
+        <div
+          class="goodsItem"
+          @mouseenter="enterDiv"
+          @mouseleave="leaveDiv"
+          translate=""
+        >
           <a href="javascript:;">
             <img
               src="../../../static/images/1.jpg"
@@ -34,7 +38,7 @@
             <el-button type="primary" size="mini">加入购物车</el-button>
           </div>
         </div>
-       
+
         <div class="goodsItem">
           <a href="javascript:;">
             <img
@@ -187,13 +191,13 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 // 头部及面包屑样式
 .Container {
   width: 100%;
   height: 20px;
   background-color: #ededed;
-  height: 2000px;
+  height: 100%;
 }
 .AllGoodsContainer {
   width: 1220px;
@@ -214,7 +218,7 @@ export default {
   &.active {
     color: #5683ea;
   }
-  &:hover{
+  &:hover {
     color: #5683ea;
     cursor: pointer;
   }
@@ -262,7 +266,6 @@ export default {
   position: relative;
   top: 0;
   transition: top 300ms linear;
-  
 }
 .goodsItem img {
   width: 206px;
@@ -294,7 +297,7 @@ export default {
   margin: 10px 15px 0 50px;
 }
 .goodsItem:hover {
-  box-shadow :0px 0px 20px rgba(0, 0, 0, 0.3) ;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   top: -4px;
   cursor: pointer;
   z-index: 99;

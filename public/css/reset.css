@@ -55,26 +55,27 @@ hr {
     border: none;
     height: 1px;
 }
-.clearFix::after{
-	content:"";
-	display: block;
-	clear:both;
-}
+
 /* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
 html { overflow-y: scroll; }
 
 a:link:hover{
-<<<<<<< HEAD
     color : rgb(79, 76, 212) !important;
     text-decoration: underline;
-=======
     /* color : rgb(79, 76, 212) !important; */
     text-decoration: none;
->>>>>>> origin/fh
+    border: none;
 }
+/* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+html {
+  overflow-y: scroll;
+}
+
+
 
 /* 清除浮动 */
 .clearfix::after {
+
     display: block;
     height: 0;
     content: "";
