@@ -6,6 +6,9 @@ import store from "./store";
 // 引入element-ui
 import "./plugins/elements";
 
+// 轮播图插件
+import "swiper/dist/css/swiper.min.css";
+
 Vue.config.productionTip = false;
 
 new Vue({
