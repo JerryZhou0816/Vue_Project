@@ -1,5 +1,16 @@
 <template>
-  <div id="app"></div>
+  <div></div>
 </template>
 
-<style></style>
+<script>
+export default {
+  name: 'App',
+  components:{
+    
+  }
+}
+</script>
+
+<style lang='less' scoped>
+
+</style>

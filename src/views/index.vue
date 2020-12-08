@@ -13,7 +13,7 @@
                           <div class="el-complete">
                              <div class="el-input">
                                  <i class="el-input-search"></i>
-                                 <input type="text" class="el-input-inner" placeholder="请输入商品信息">
+                                 <el-input v-model="input" placeholder="请输入内容"></el-input>
                              </div>
                              <a href="javascript:;">
                                  <a>全部商品</a>
@@ -42,9 +42,19 @@
 <script>
 export default {
   name: '',
+   data() {
+    return {
+      input: ''
+    }
+  }
 }
 </script>
 
 <style lang='less' scoped>
-
+    // .hearderbox{
+    //     background: #1a1a1a;
+    //     width: 1200px;
+    //     height:100px;
+    //     z-index: 30;
+    // }
 </style>
