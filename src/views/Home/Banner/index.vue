@@ -89,10 +89,21 @@ export default {
         width: 25%;
         height: 100%;
         position: relative;
+
         & + li {
           border-left: 1px solid rgba(0, 0, 0, 0.1);
         }
         a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          box-sizing: border-box;
+          transition: all 0.5s;
+          &:hover {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.5s;
+          }
           img {
             width: 100%;
             height: 200px;
