@@ -1,6 +1,10 @@
 @import "./iconfont.css";
  
+<<<<<<< HEAD
  /* 清除内外边距 */
+=======
+/* 清除内外边距 */
+>>>>>>> origin/fh
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote,
 dl, dt, dd, ul, ol, li,
 pre,
@@ -30,10 +34,17 @@ code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; } /* 
 small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
 
 /* 重置列表元素 */
+<<<<<<< HEAD
 ul, ol { list-style: none; }
 
 /* 重置文本格式元素 */
 a { text-decoration: none; color: #666;}
+=======
+ul, ol,li { list-style: none; }
+
+/* 重置文本格式元素 */
+a  { text-decoration: none; color: #666;}
+>>>>>>> origin/fh
 
 
 /* 重置表单元素 */
@@ -63,8 +74,13 @@ hr {
 html { overflow-y: scroll; }
 
 a:link:hover{
+<<<<<<< HEAD
     color : rgb(79, 76, 212) !important;
     text-decoration: underline;
+=======
+    /* color : rgb(79, 76, 212) !important; */
+    text-decoration: none;
+>>>>>>> origin/fh
 }
 
 /* 清除浮动 */

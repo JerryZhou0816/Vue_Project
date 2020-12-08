@@ -1,8 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 Vue.use(VueRouter);
-
+import AllGoods  from '../views/AllGoods'
+const routes = [{
+  path:'/allgoods',
+  component:AllGoods
+}
+]
 import Home from "../views/Home";
 const routes = [
   {
