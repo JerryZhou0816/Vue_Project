@@ -17,6 +17,8 @@ Vue.use(VueLazyload);
 // 引入api
 import * as Http from "@/api";
 Vue.config.productionTip = false;
+//使用ui
+// Vue.use(ElementUI);
 
 new Vue({
   router,
