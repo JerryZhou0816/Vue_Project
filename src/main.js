@@ -18,6 +18,10 @@ Vue.use(VueLazyload);
 import * as Http from "@/api";
 Vue.config.productionTip = false;
 
+//引入和表单验证相关的模块
+import "./validate";
+
+
 new Vue({
   router,
   store,

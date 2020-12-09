@@ -4,6 +4,10 @@ export default [
     component: () => import("../views/Login/Login"),
   },
   {
+    path: "/register",
+    component: () => import("../views/Register/Register"),
+  },
+  {
     path: "/",
     component: () => import("../views/Home"),
   },
