@@ -8,20 +8,18 @@
 <script>
 import Banner from "./Banner";
 import HotGoods from "./HotGoods";
-
 export default {
   name: "home",
+  data() {
+    return {};
+  },
   components: {
     Banner,
     HotGoods,
   },
+  methods: {},
   mounted() {
-    // this.getGoods();
-  },
-  methods: {
-    getGoods() {
-      this.$API.reqAllGoodsList();
-    },
+    this.$store.dispatch("getHomeData");
   },
 };
 </script>

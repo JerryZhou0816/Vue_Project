@@ -22,25 +22,10 @@
     </div>
     <!-- 推荐列表 -->
     <div class="recommendContainer">
-      <ul class="recommendList">
-        <li>
+      <ul class="recommendList" v-if="banner[0]">
+        <li v-for="(item, index) in banner[0].panelContents" :key="item.id">
           <a href="##">
-            <img src="./images/list1.jpg" alt="" />
-          </a>
-        </li>
-        <li>
-          <a href="##">
-            <img src="./images/list2.jpg" alt="" />
-          </a>
-        </li>
-        <li>
-          <a href="##">
-            <img src="./images/list3.png" alt="" />
-          </a>
-        </li>
-        <li>
-          <a href="##">
-            <img src="./images/list4.jpg" alt="" />
+            <img :src="item.picUrl" alt="" />
           </a>
         </li>
       </ul>
@@ -50,7 +35,11 @@
 
 <script>
 import Swiper from "swiper";
+import { mapGetters } from "vuex";
 export default {
+  data() {
+    return {};
+  },
   name: "banner",
   mounted() {
     new Swiper(".swiper-container", {
@@ -65,6 +54,9 @@ export default {
         el: ".swiper-scrollbar",
       },
     });
+  },
+  computed: {
+    ...mapGetters(["banner"]),
   },
 };
 </script>

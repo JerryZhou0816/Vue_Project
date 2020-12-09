@@ -6,38 +6,24 @@
         <h4>热门商品</h4>
       </div>
       <div class="hotGoods">
-        <div class="hotItem">
+        <div class="hotItem" v-for="(hot, index) in hotList" :key="hot.id">
           <div class="good-img">
             <a href="##">
-              <img src="./images/item1.png" alt="" />
+              <img :src="hot.picUrl" alt="" />
             </a>
           </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
+          <h3>{{ hot.productName }}</h3>
+          <h6>{{ hot.subTitle }}</h6>
           <div class="price">
             <div></div>
             <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="hotItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item2.png" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
+              <span>¥{{ hot.salePrice }}.00</span>
             </p>
           </div>
         </div>
       </div>
     </div>
+
     <!-- 官网推荐 -->
     <div class="handpickContent">
       <div class="hotTitle">
@@ -341,6 +327,7 @@
         </div>
       </div>
     </div>
+
     <!-- 底部推荐 -->
     <div class="recommendContainer">
       <ul class="recommendList">
@@ -370,8 +357,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "hot",
+  computed: {
+    ...mapGetters(["hotList"]),
+  },
 };
 </script>
 

@@ -1,8 +1,9 @@
 import Ajax from "@/ajax/Ajax";
 
-export const reqAllGoodsList = () => {
+//  轮播图数据
+export const reqHomeGoods = () => {
   return Ajax({
-    url: "/getAllGoods",
+    url: "/goods/home",
     method: "get",
   });
 };

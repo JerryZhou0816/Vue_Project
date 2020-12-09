@@ -53,8 +53,12 @@
         </div>
       </header>
       <!-- 导航栏 -->
-      <nav class="navContainer" v-show="$route.path !== '/myorder'">
-        <div class="navSub">
+      <nav
+        class="navContainer"
+        id="searchBar"
+        v-show="$route.path !== '/myorder'"
+      >
+        <div class="navSub" :class="searchBarFixed == true ? 'isFixed' : ''">
           <ul class="navList">
             <li>
               <router-link to="/">首页</router-link>
@@ -90,12 +94,30 @@ export default {
   data() {
     return {
       searchInfo: "",
+      searchBarFixed: false,
     };
   },
   methods: {
     toLogin() {
       this.$router.push("/login");
     },
+    handlerScroll() {
+      // 获取滚动条高度
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      // 判断滚动条超过元素高度时，切换样式
+      let offsetTop = document.querySelector("#searchBar").offsetTop;
+      scrollTop > offsetTop
+        ? (this.searchBarFixed = true)
+        : (this.searchBarFixed = false);
+    },
+  },
+
+  // 导航栏固定事件
+  mounted() {
+    window.addEventListener("scroll", this.handlerScroll);
   },
 };
 </script>
@@ -193,13 +215,24 @@ export default {
     }
   }
   .navContainer {
+    width: 100%;
     height: 90px;
     line-height: 90px;
     background-color: #fff;
+    // 滚动条样式
+    .isFixed {
+      position: fixed;
+      top: 0;
+      z-index: 999;
+      height: 60px;
+      line-height: 60px;
+      background-color: #fff;
+    }
     .navSub {
-      width: 1220px;
-      margin: 0 auto;
+      width: 100%;
       .navList {
+        width: 1190px;
+        margin: 0 auto;
         display: flex;
         li {
           a {
