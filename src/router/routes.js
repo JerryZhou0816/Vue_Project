@@ -10,10 +10,22 @@ export default [
     path: "/myorder",
     component: MyOrder,
   },
-  { path: "/myphoto", component: MyPhoto },
-  { path: "/mypreferential", component: MyPreferential },
-  { path: "/mynew", component: MyNew },
-  { path: "/myaftersales", component: MyAfterSales },
+  {
+    path: "/myphoto",
+    component: MyPhoto,
+  },
+  {
+    path: "/mypreferential",
+    component: MyPreferential,
+  },
+  {
+    path: "/mynew",
+    component: MyNew,
+  },
+  {
+    path: "/myaftersales",
+    component: MyAfterSales,
+  },
   {
     path: "/myprogress",
     component: MyProgress,
@@ -29,18 +41,15 @@ export default [
   {
     path: "/home",
     component: () => import("../views/Home"),
-    children: [
-      {
-        path: "/detail",
-        component: () => import("../views/Detail"),
-      },
-      {
-        path: "/allgoods",
-        component: () => import("../views/AllGoods"),
-      },
-    ],
   },
-
+  {
+    path: "/detail",
+    component: () => import("../views/Detail"),
+  },
+  {
+    path: "/allgoods",
+    component: () => import("../views/AllGoods"),
+  },
   {
     path: "/",
     redirect: "/home",

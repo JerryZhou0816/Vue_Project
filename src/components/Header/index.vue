@@ -53,7 +53,7 @@
         </div>
       </header>
       <!-- 导航栏 -->
-      <nav class="navContainer">
+      <nav class="navContainer" v-show="$route.path !== '/myorder'">
         <div class="navSub">
           <ul class="navList">
             <li>
