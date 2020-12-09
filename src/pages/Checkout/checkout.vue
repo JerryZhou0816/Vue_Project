@@ -129,15 +129,8 @@
         </div>
       </div>
       <!-- 价格明细 -->
-      <div class="box-inner">
-        <div class="order-discount-line">
-          <p>商品总计： <span>¥ 297.00</span></p>
-          <p>运费： <span>+ ¥ 0.00</span></p>
-          <p class="discount-line js-discount-cash">
-            <em>现金券</em>： <span> - 0 </span>
-          </p>
-        </div>
-      </div>
+     
+      <!-- 总价格 -->
       <div class="box-inner">
         <div class="last-payment clear">
           <span
