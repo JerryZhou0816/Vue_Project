@@ -5,13 +5,17 @@ import store from "./store";
 
 // 引入element-ui
 import "./plugins/elements";
-// import ElementUI from 'element-ui';
-// import 'element-ui/lib/theme-chalk/index.css';
-
+import "element-ui/lib/theme-chalk/index.css";
 
 // 轮播图插件
 // import "swiper/dist/css/swiper.min.css";
 
+// 路由懒加载
+import VueLazyload from "vue-lazyload";
+Vue.use(VueLazyload);
+
+// 引入api
+import * as Http from "@/api";
 Vue.config.productionTip = false;
 //使用ui
 // Vue.use(ElementUI);
@@ -19,5 +23,8 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  beforeCreate() {
+    Vue.prototype.$API = Http;
+  },
   render: (h) => h(App),
 }).$mount("#app");

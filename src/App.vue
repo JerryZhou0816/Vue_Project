@@ -1,8 +1,7 @@
 <template>
-  <div class="main">
-    <Header></Header>
-    <router-view></router-view>
-    <Footer></Footer>
+  <div>
+    <Header v-show="$route.path !== '/login'"></Header>
+    <Footer v-show="$route.path !== '/login'"></Footer>
   </div>
 </template>
 <script>
