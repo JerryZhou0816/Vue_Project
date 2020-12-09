@@ -17,6 +17,10 @@ export default [
     component: () => import("../views/Detail"),
   },
   {
+    path:'/ShopCart',
+    component:()=>import('../views/ShopCart')
+  },
+  {
     path: "/",
     redirect: "/home",
   },
