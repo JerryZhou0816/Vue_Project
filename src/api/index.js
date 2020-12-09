@@ -2,7 +2,7 @@ import Ajax from "@/ajax/Ajax";
 
 export const reqAllGoodsList = () => {
   return Ajax({
-    url: "/getAllGoods",
+    url: '/getAllGoods',
     method: "get",
   });
-};
+}

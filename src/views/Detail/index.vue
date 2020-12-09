@@ -52,7 +52,7 @@
           ></el-input-number> -->
         </div>
         <div class="bottom">
-          <el-button type="primary" size="medium" class="btn" @click="addCart"
+          <el-button type="primary" size="medium" class="btn"
             >加入购物车</el-button
           >
           <el-button class="btn" @click="toCheckout">现在购买</el-button>
