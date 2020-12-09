@@ -1,8 +1,7 @@
 <template>
-  <div class="main">
-    <Header></Header>
-    <router-view></router-view>
-    <Footer></Footer>
+  <div>
+    <Header v-show="$route.path !== '/login'"></Header>
+    <Footer v-show="$route.path !== '/login'"></Footer>
   </div>
 </template>
 <script>
@@ -15,12 +14,4 @@ export default {
   },
 };
 </script>
-<style>
-.main {
-  width: 100%;
-  height: 3000px;
-  overflow: hidden;
-  min-height: calc(100vh - 454px);
-  background: #ededed;
-}
-</style>
+<style></style>
