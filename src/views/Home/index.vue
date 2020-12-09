@@ -15,6 +15,14 @@ export default {
     Banner,
     HotGoods,
   },
+  mounted() {
+    this.getGoods();
+  },
+  methods: {
+    getGoods() {
+      this.$API.reqAllGoodsList();
+    },
+  },
 };
 </script>
 
