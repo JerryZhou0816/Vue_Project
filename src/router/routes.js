@@ -2,6 +2,10 @@ export default [
   {
     path: "/login",
     component: () => import("../views/Login/Login"),
+  }, 
+  {
+    path: "/register",
+    component: () => import("../views/Register/Register"),
   },
 
   {
@@ -16,6 +20,7 @@ export default [
         path: "/allgoods",
         component: () => import("../views/AllGoods"),
       },
+      
     ],
   },
 
