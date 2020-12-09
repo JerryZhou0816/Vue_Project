@@ -4,7 +4,7 @@ export default [
     component: () => import("../views/Login/Login"),
   },
   {
-    path: "/",
+    path: "/home",
     component: () => import("../views/Home"),
   },
 

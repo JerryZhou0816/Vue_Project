@@ -1,6 +1,7 @@
 <template>
   <div class="content">
     <Banner></Banner>
+
     <HotGoods></HotGoods>
   </div>
 </template>
@@ -16,7 +17,7 @@ export default {
     HotGoods,
   },
   mounted() {
-    this.getGoods();
+    // this.getGoods();
   },
   methods: {
     getGoods() {
