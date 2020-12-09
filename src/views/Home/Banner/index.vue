@@ -51,7 +51,7 @@
 <script>
 import Swiper from "swiper";
 export default {
-  name: "home",
+  name: "banner",
   mounted() {
     new Swiper(".swiper-container", {
       loop: true, // 循环模式选项
