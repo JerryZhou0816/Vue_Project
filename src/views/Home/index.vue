@@ -16,7 +16,7 @@ export default {
     HotGoods,
   },
   mounted() {
-    this.getGoods();
+    // this.getGoods();
   },
   methods: {
     getGoods() {
