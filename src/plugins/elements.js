@@ -39,7 +39,7 @@ import {
   // Autocomplete,
   // MenuItemGroup,
   // InputNumber,
-  // Radio,
+  Radio,
   RadioGroup,
   RadioButton,
   // CheckboxButton,
@@ -61,8 +61,8 @@ import {
   // Spinner,
   // Badge,
   // Rate,
-  // Steps,
-  // Step,
+  Steps,
+  Step,
   // Collapse,
   // CollapseItem,
   // Cascader,
@@ -75,7 +75,7 @@ import {
   // Footer,
   // Timeline,
   // TimelineItem,
-  // Link,
+  Link,
   // Divider,
   // Calendar,
   // Backtop,
@@ -129,7 +129,7 @@ Vue.use(Loading.directive);
 // Vue.use(Autocomplete);
 // Vue.use(MenuItemGroup);
 // Vue.use(InputNumber);
-// Vue.use(Radio);
+Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(CheckboxGroup);
@@ -150,8 +150,8 @@ Vue.use(Popover);
 // Vue.use(Spinner);
 // Vue.use(Badge);
 // Vue.use(Rate);
-// Vue.use(Steps);
-// Vue.use(Step);
+Vue.use(Steps);
+Vue.use(Step);
 // Vue.use(Collapse);
 // Vue.use(CollapseItem);
 // Vue.use(Cascader);
@@ -164,7 +164,7 @@ Vue.use(Aside);
 // Vue.use(Footer);
 // Vue.use(Timeline);
 // Vue.use(TimelineItem);
-// Vue.use(Link);
+Vue.use(Link);
 // Vue.use(Divider);
 // Vue.use(Calendar);
 // Vue.use(Backtop);

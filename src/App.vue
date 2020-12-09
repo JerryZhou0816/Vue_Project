@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header v-show="$route.path !== '/login'"></Header>
+    <router-view></router-view>
     <Footer v-show="$route.path !== '/login'"></Footer>
   </div>
 </template>
