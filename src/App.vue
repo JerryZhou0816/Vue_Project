@@ -1,16 +1,17 @@
 <template>
-  <div></div>
+  <div>
+    <Header v-show="$route.path !== '/login'"></Header>
+    <Footer v-show="$route.path !== '/login'"></Footer>
+  </div>
 </template>
-
 <script>
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 export default {
-  name: 'App',
-  components:{
-    
-  }
-}
+  components: {
+    Header,
+    Footer,
+  },
+};
 </script>
-
-<style lang='less' scoped>
-
-</style>
+<style></style>
