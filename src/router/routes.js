@@ -31,12 +31,24 @@ export default [
     component: MyProgress,
   },
   {
+    path: "/checkout",
+    component: () => import("@/views/Checkout/checkout"),
+  },
+  {
     path: "/login",
     component: () => import("../views/Login/Login"),
   },
   {
     path: "/register",
     component: () => import("../views/Register/Register"),
+  },
+  {
+    path: "/shopcart",
+    component: () => import("@/views/ShopCart"),
+  },
+  {
+    path: "/surrounding",
+    component: () => import("@/views/Surrounding"),
   },
   {
     path: "/home",

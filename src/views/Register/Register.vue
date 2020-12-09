@@ -5,7 +5,7 @@
         <h4>注册 XMall 账号</h4>
         <div class="RegisterContent">
           <div class="userName">
-            <input type="text"  placeholder="账号" />
+            <input type="text" placeholder="账号" />
           </div>
           <div class="userPassword">
             <input type="password" placeholder="密码" />

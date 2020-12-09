@@ -1,7 +1,6 @@
 <template>
   <div class="content">
     <Banner></Banner>
-
     <HotGoods></HotGoods>
   </div>
 </template>

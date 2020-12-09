@@ -63,7 +63,7 @@
               <router-link to="/allgoods">全部</router-link>
             </li>
             <li>
-              <a href="##">品牌周边</a>
+              <router-link to="/surrounding">品牌周边</router-link>
             </li>
             <li>
               <a href="##">坚果手机</a>
