@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <div class="headerContanier">
       <!-- 头部 -->
       <header>
@@ -82,11 +83,14 @@
       </nav>
     </div>
     <router-view></router-view>
+=======
+>>>>>>> fa40f04b8243a4579395650934baaf4c74dcf756
   </div>
 </template>
 
 <script>
 export default {
+<<<<<<< HEAD
   name: "headerIndex",
   data() {
     return {
@@ -219,4 +223,16 @@ export default {
     }
   }
 }
+=======
+  name: "Header",
+  data() {
+    return {
+      
+    }
+  }
+};
+</script>
+
+<style>
+>>>>>>> fa40f04b8243a4579395650934baaf4c74dcf756
 </style>
