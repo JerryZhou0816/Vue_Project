@@ -18,12 +18,21 @@
         />
       </div>
       <!-- 大图 -->
+      <!-- @mousemove="move" -->
       <div class="bigImage">
         <!-- <img
           src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
         /> -->
         <img :src="bigImage[index].src" />
+
+        <!-- <div class="mask" ref="mask"></div> -->
+
+        <!-- 放大镜---------------------------------------- -->
+        <!-- <div class="magnifier" ref="magnifier">
+          <img :src="bigImage[index].src" ref="bigBigImage" />
+        </div>-->
       </div>
+
       <!-- 右 -->
       <div class="rightContainer">
         <div class="top">
@@ -42,22 +51,12 @@
           <div class="sub" @click="changeNum(false)">-</div>
           <span>{{ count }}</span>
           <div class="add" @click="changeNum(true)">+</div>
-          <!-- <el-input-number
-            v-model="num"
-            @change="handleChange"
-            :min="1"
-            :max="10"
-            label="数量"
-            style=""
-          ></el-input-number> -->
         </div>
         <div class="bottom">
           <el-button type="primary" size="medium" class="btn" @click="addCart"
             >加入购物车</el-button
           >
           <el-button class="btn" @click="toCheckout">现在购买</el-button>
-          <!-- <div class="btn1">加入购物车</div>
-          <div class="btn">现在购买</div> -->
         </div>
       </div>
     </div>
@@ -98,6 +97,39 @@ export default {
     };
   },
   methods: {
+    //放大镜
+    // move(event) {
+    //   //移入之后先让遮罩移动
+    //   let mask = this.$refs.mask;
+    //   let bigBigImage = this.$refs.bigBigImage;
+    //   // let magnifier = this.$refs.magnifier;
+    //   //鼠标位置
+    //   let mouseX = event.offsetX;
+    //   let mouseY = event.offsetY;
+    //   //计算遮罩位置
+    //   let maskX = mouseX - mask.offsetWidth / 2;
+    //   let maskY = mouseY - mask.offsetHeight / 2;
+    //   //临界
+    //   if (maskX < 0) {
+    //     maskX = 0;
+    //   } else if (maskX > mask.offsetWidth) {
+    //     maskX = mask.offsetWidth;
+    //   }
+
+    //   if (maskY < 0) {
+    //     maskY = 0;
+    //   } else if (maskY > mask.offsetHeight) {
+    //     maskY = mask.offsetHeight;
+    //   }
+    //   // 修改
+    //   mask.style.left = maskX + "px";
+    //   mask.style.top = maskY + "px";
+
+    //   bigBigImage.style.left = -2 * maskX + "px";
+    //   bigBigImage.style.top = -2 * maskY + "px";
+    //   // magnifier.style.display = "block";
+    // },
+
     // 点击添加active类/改变大图
     changeState(index) {
       this.index = index;
@@ -117,9 +149,12 @@ export default {
         }
       }
     },
-    //去结算页面
-    toCheckout() {},
     //添加购物车
+    addCart() {},
+    //去结算页面
+    toCheckout() {
+      this.$router.push("/checkout");
+    },
 
     // handleChange(value) {
     //   console.log(value);
@@ -132,7 +167,7 @@ export default {
 .detail {
   background-color: #eee;
   width: 100%;
-  height: 10000px;
+  height: 100%;
 
   .shop {
     width: 1220px;
@@ -172,12 +207,47 @@ export default {
       height: 440px;
       margin-left: 80px;
       margin-top: 60px;
+      position: relative;
       //   align-items: center;
       img {
         width: 440px;
         height: 440px;
       }
+      // .mask {
+      //   width: 220px;
+      //   height: 220px;
+      //   background-color: rgba(0, 0, 0, 0.5);
+      //   position: absolute;
+      //   top: 0;
+      //   left: 0;
+      //   &:hover {
+      //     display: block;
+      //   }
+      // }
+      //放大镜--------------------------------------------------------
+      // .magnifier {
+      //   width: 440px;
+      //   height: 440px;
+      //   position: absolute;
+      //   top: 0;
+      //   left: 450px;
+      //   background-color: pink;
+      //   display: none;
+      //   z-index: 100;
+      //   overflow: hidden;
+      //   img {
+      //     position: absolute;
+      //     top: 0;
+      //     left: 0;
+      //     width: 880px;
+      //     height: 880px;
+      //   }
+      //   &:hover {
+      //     display: block;
+      //   }
+      // }
     }
+
     .rightContainer {
       position: relative;
       left: 20px;
@@ -224,8 +294,6 @@ export default {
           color: #999;
         }
         .sub {
-          // position: relative;
-          // top: 25px;
           width: 25px;
           height: 25px;
           line-height: 25px;
@@ -241,58 +309,49 @@ export default {
           top: 50%;
           transform: translateY(-50%);
         }
-        .add {
-          width: 25px;
-          height: 25px;
-          line-height: 25px;
-          text-align: center;
-          border: 1px solid #999;
-          border-radius: 50%;
-          margin-left: 20px;
-          font-weight: 700;
-          color: #999;
-          box-shadow: 0px 0px 10px 2px #e6e6e6;
-          box-sizing: border-box;
-          position: relative;
-          top: 50%;
-          transform: translateY(-50%);
-        }
       }
-      //   .buttom {
-      //     .btn1 {
-      //       //   display: flex;
-      //       display: block;
-      //       width: 145px;
-      //       height: 50px;
-      //       background-color: blue;
-      //     }
-      //   }
+      .add {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border: 1px solid #999;
+        border-radius: 50%;
+        margin-left: 20px;
+        font-weight: 700;
+        color: #999;
+        box-shadow: 0px 0px 10px 2px #e6e6e6;
+        box-sizing: border-box;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
   }
-  .productInfo {
-    width: 1220px;
-    margin: 0px auto;
-    position: relative;
-    top: 40px;
-    background-color: white;
-    border-radius: 20px;
-    div {
+}
+.productInfo {
+  width: 1220px;
+  margin: 0px auto;
+  position: relative;
+  top: 40px;
+  background-color: white;
+  border-radius: 20px;
+  div {
+    height: 60px;
+    border: 1px solid #e6e6e6;
+    border-bottom: none;
+    border-radius: 15px 15px 0 0;
+    background-color: #f3f3f3;
+    span {
+      position: relative;
       height: 60px;
-      border: 1px solid #e6e6e6;
-      border-bottom: none;
-      border-radius: 15px 15px 0 0;
-      background-color: #f3f3f3;
-      span {
-        position: relative;
-        height: 60px;
-        line-height: 60px;
-        left: 20px;
-        font-size: 18px;
-      }
+      line-height: 60px;
+      left: 20px;
+      font-size: 18px;
     }
-    img {
-      width: 1220px;
-    }
+  }
+  img {
+    width: 1220px;
   }
 }
 </style>
