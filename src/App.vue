@@ -16,11 +16,4 @@ export default {
 };
 </script>
 <style>
-.main {
-  width: 100%;
-  height: 3000px;
-  overflow: hidden;
-  min-height: calc(100vh - 454px);
-  background: #ededed;
-}
 </style>

@@ -24,7 +24,7 @@
               <a class="el-icon-user-solid" href="##"></a>
               <!-- 移入显示下拉菜单 -->
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>我的订单</el-dropdown-item>
+                <router-link to="/myorder">我的订单</router-link>
                 <el-dropdown-item>账号资料</el-dropdown-item>
                 <el-dropdown-item>收货地址</el-dropdown-item>
                 <el-dropdown-item>售后服务</el-dropdown-item>

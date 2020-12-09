@@ -45,6 +45,7 @@ import {
   RadioButton,
   // CheckboxButton,
   CheckboxGroup,
+  Avatar,
   // Switch,
   // OptionGroup,
   // ButtonGroup,
@@ -68,9 +69,9 @@ import {
   // Cascader,
   // ColorPicker,
   // Transfer,
-  // Container,
+  Container,
   // Header,
-  // Aside,
+  Aside,
   // Main,
   // Footer,
   // Timeline,
@@ -93,6 +94,7 @@ const { alert, confirm, prompt } = msgbox;
 // Vue.component(Scrollbar.name, Scrollbar)
 Vue.use(Scrollbar); // 注册单独引入的隐藏组件
 Vue.use(Drawer);
+Vue.use(Avatar)
 Vue.use(Popconfirm);
 Vue.use(Pagination);
 Vue.use(Dialog);
@@ -156,9 +158,9 @@ Vue.use(Popover);
 // Vue.use(Cascader);
 // Vue.use(ColorPicker);
 // Vue.use(Transfer);
-// Vue.use(Container);
+Vue.use(Container);
 // Vue.use(Header);
-// Vue.use(Aside);
+Vue.use(Aside);
 // Vue.use(Main);
 // Vue.use(Footer);
 // Vue.use(Timeline);
