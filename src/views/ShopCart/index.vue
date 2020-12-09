@@ -19,26 +19,32 @@
                       <div class="cart-group pr">
                           <div class="cart-top-items">
                               <div class="cart-items clearfix">
+                                <!-- 选中按钮 -->
                                 <div class="items-choose blue-checkbox-new checkbox-on">
                                    <div class="check-box">
                                      <img src="../../../static/images/checkbox-new_631a56a4f6.png" alt="">
                                    </div>
                                 </div>
+                                <!-- 商品图片 -->
                                 <div class="items-thumb f1">
                                     <img src="../../../static/images/dog.jpg">
                                 </div>
+                                <!-- 商品名字 -->
                                 <div class=" name1 hide-row f1">
                                     <div class="name-table">
                                         <a href="javascript:;">Smartisan 明信片</a>
                                     </div>
                                 </div>
+                                <!-- 操作 X -->
                                 <div class="operation">
                                     <a href="javascript:;" class="items-delete-btn">
                                     </a>
                                 </div>
+                                <!-- 价格 -->
                                 <div class="price1">
                                     ¥ 9.9
                                 </div>
+                                <!-- 数量 -->
                                 <div class="amount-box">
                                     <div class="select-box">
                                         <span class="down">-</span>
@@ -46,6 +52,7 @@
                                         <span class="up">+</span>
                                     </div>
                                 </div>
+                                <!-- 小计 -->
                                 <div class="subtotal">
                                     ¥ 49.5
                                 </div>
@@ -189,7 +196,7 @@ export default {
     }
     .header{
         width: 100%;
-        height: 100px;
+        // height: 100px;
     }
    .store-content{
     clear: both;

@@ -1,3 +1,9 @@
+
+
+
+import ShopCart from '@/views/ShopCart'
+
+
 export default [
   {
     path: "/login",
@@ -18,7 +24,7 @@ export default [
   },
   {
     path:'/ShopCart',
-    component:()=>import('../views/ShopCart')
+    component:()=>import('../views/ShopCart'),
   },
   {
     path: "/",
