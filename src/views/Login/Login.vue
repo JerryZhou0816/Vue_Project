@@ -1,9 +1,11 @@
 <template>
   <div class="login">
     <div class="LoginContainer">
+      <!-- 登录的头像以及标题 -->
       <div class="title">
         <h4>使用XMall 账号 登录官网</h4>
       </div>
+      <!-- 登录的主体 收集用户的数据 -->
       <div class="content">
         <div class="userName">
           <input type="text" placeholder="账号" />
@@ -18,7 +20,8 @@
           <input type="checkbox" id="txt" />
           <label for="txt">记住密码 </label>
           <div>
-            <a href="javascript:;" class="regiter">注册 XMall账号</a>
+            <a href="javascript:;" class="regiter"  @click="toRegister">注册 XMall账号</a>
+            <!-- 这个功能暂时不做了 -->
             <a href="javascript:;" class="forget">忘记密码？</a>
           </div>
         </div>
@@ -41,6 +44,11 @@
 <script>
 export default {
   name: "",
+  methods:{
+    toRegister(){
+      this.$router.push("/register");
+    }
+  }
 };
 </script>
 
@@ -65,13 +73,7 @@ export default {
       padding: 75px 0 0;
       box-sizing: content-box;
       position: relative;
-      // background-image: url(/static/images/smartisan_4ada7fecea.png);
-      // background-size: 130px;
-      // background-position: top center;
-      // background-repeat: no-repeatstatic\images\smartisan_4ada7fecea.png;
-
-      background: url(../../../static/images/smartisan_4ada7fecea.png) no-repeat
-        bottom;
+      background: url(../../../static/images/smartisan_4ada7fecea.png) no-repeat bottom;
       h4 {
         position: absolute;
         height: 20px;
