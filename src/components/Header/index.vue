@@ -1,11 +1,18 @@
 <template>
-  <div></div>
+  <div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "footer",
+  name: "Header",
+  data() {
+    return {
+      
+    }
+  }
 };
 </script>
 
-<style></style>
+<style>
+</style>

@@ -1,12 +1,15 @@
 <template>
-  <div></div>
+  <div>
+    <ShopCart></ShopCart>
+  </div>
 </template>
 
 <script>
+import ShopCart from './views/ShopCart'
 export default {
   name: 'App',
   components:{
-    
+    ShopCart
   }
 }
 </script>
