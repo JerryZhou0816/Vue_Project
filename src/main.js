@@ -14,10 +14,15 @@ import "swiper/dist/css/swiper.min.css";
 import VueLazyload from "vue-lazyload";
 Vue.use(VueLazyload);
 
+// 引入api
+import * as Http from "@/api";
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
+  beforeCreate() {
+    Vue.prototype.$API = Http;
+  },
   render: (h) => h(App),
 }).$mount("#app");
