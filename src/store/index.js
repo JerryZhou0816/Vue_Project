@@ -3,8 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import modules from "@/store/modules";
-
+import home from "@/store/home";
 const state = {};
 const mutations = {};
 const actions = {};
@@ -14,5 +13,7 @@ export default new Vuex.Store({
   mutations,
   actions,
   getters,
-  modules,
+  modules: {
+    home,
+  },
 });
