@@ -3,19 +3,18 @@
     <!-- 详情 -->
     <div class="shop">
       <!-- 图片列表 -->
-      <div class="imageList">
-        <!-- @click="changeState(index)" -->
-        <!-- :class="flag === index ? 'active' : ''" -->
+      <div class="imageList" >
         <img
-          @click="changeState(0)"
-          :class="flag === 0 ? 'active' : ''"
-          src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
+          v-for="(item,index) in productDet.productImageSmall" :key="index" 
+          @click="changeState(index)"
+          :class="flag === index ? 'active' : ''"
+          :src="item[index]"
         />
-        <img
-          @click="changeState(1)"
-          :class="flag === 1 ? 'active' : ''"
+        <!-- <img
+          @click="changeState(index)"
+          :class="flag === index ? 'active' : ''"
           src="https://resource.smartisan.com/resource/1501eaf68c9771e5599eec45a5f6320a.jpg"
-        />
+        /> -->
       </div>
       <!-- 大图 -->
       <!-- @mousemove="move" -->
@@ -23,7 +22,7 @@
         <!-- <img
           src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
         /> -->
-        <img :src="bigImage[index].src" />
+        <img :src="item[index]" />
 
         <!-- <div class="mask" ref="mask"></div> -->
 
@@ -36,12 +35,12 @@
       <!-- 右 -->
       <div class="rightContainer">
         <div class="top">
-          <h4>优点智能 E1 推拉式智能指纹密码锁</h4>
+          <h4>{{productDet.productName}}</h4>
           <div>
             <h6>
-              <span>推拉一下，轻松开关</span>
+              <span>{{productDet.subTitle}}</span>
 
-              <i> 1111.00 </i>
+              <i> {{productDet.salePrice}} </i>
               <em class="iconfont icon-qian"></em>
             </h6>
           </div>
@@ -49,7 +48,7 @@
         <div class="middle">
           <span class="num">数量</span>
           <div class="sub" @click="changeNum(false)">-</div>
-          <span>{{ count }}</span>
+          <span>{{ productNum }}</span>
           <div class="add" @click="changeNum(true)">+</div>
         </div>
         <div class="bottom">
@@ -66,37 +65,57 @@
       <div>
         <span>产品信息</span>
       </div>
-      <img
+      <!-- <img
         src="https://resource.smartisan.com/resource/a1f3fbf662376e8684e528f05721b286.jpg"
+      />    -->
+      <img
+        :src="productDet.productImageBig"
       />
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: "",
   data() {
     return {
+      productId:'150642571432849',
       flag: 0,
-      count: 1,
+      productNum: 1,
       index: 0,
       //   num: 1,
       // defaultIndex: 0, //这个数据是图片下标，控制显示的图片是哪张，
       // 大图切换假
-      bigImage: [
-        {
-          src:
-            "https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg",
-        },
-        {
-          src:
-            "https://resource.smartisan.com/resource/1501eaf68c9771e5599eec45a5f6320a.jpg",
-        },
-      ],
+      // bigImage: [
+      //   {
+      //     src:
+      //       "https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg",
+      //   },
+      //   {
+      //     src:
+      //       "https://resource.smartisan.com/resource/1501eaf68c9771e5599eec45a5f6320a.jpg",
+      //   },
+      // ],
     };
   },
+  beforeMount(){
+    // this.productId=this.$router.params.productId
+  },
+  mounted(){
+    this.getProductDet()
+  },
+  computed:{
+    ...mapState({productDet:state=>state.productDet})
+  },
   methods: {
+
+    //获取商品详情
+    getProductDet(){
+      this.$store.dispatch("getProductDet",this.productId)
+    },
+    
     //放大镜
     // move(event) {
     //   //移入之后先让遮罩移动
@@ -142,18 +161,32 @@ export default {
     //数量加减
     changeNum(type) {
       if (type) {
-        this.count = this.count + 1;
+        this.productNum = this.productNum + 1;
       } else {
-        if (this.count > 1) {
-          this.count = this.count - 1;
+        if (this.productNum > 1) {
+          this.productNum = this.productNum - 1;
         }
       }
     },
     //添加购物车
-    addCart() {},
+    async addCart() {
+      let {productId,productNum} =this
+      try {
+        const result = await this.$store.dispatch('addShopCart',{productId,productNum})
+        if(result === 'ok'){
+          alert('添加购物车成功')
+        }
+        else{
+          alert('添加购物车失败')
+          // this.$router.push('/login')
+        }
+      } catch (error) {
+        alert('添加购物车失败')
+      }
+    },
     //去结算页面
     toCheckout() {
-      this.$router.push("/checkout");
+      this.$router.push({path:"/checkout",query:{productId:this.productId}});
     },
 
     // handleChange(value) {
