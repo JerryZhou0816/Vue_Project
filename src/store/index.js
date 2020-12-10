@@ -5,6 +5,8 @@ Vue.use(Vuex);
 
 import home from "@/store/home";
 import detail from "@/store/detail";
+import shopcart from "@/store/ShopCart";
+
 const state = {};
 const mutations = {};
 const actions = {};
@@ -18,5 +20,6 @@ export default new Vuex.Store({
   modules: {
     home,
     detail,
+    shopcart,
   },
 });

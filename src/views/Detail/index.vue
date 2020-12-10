@@ -58,7 +58,7 @@
               type="primary"
               size="medium"
               class="btn"
-              @click="this.$router.push('/shopcart')"
+              @click="$router.push('/shopcart')"
               >加入购物车</el-button
             >
             <el-button class="btn" @click="toCheckout">现在购买</el-button>
