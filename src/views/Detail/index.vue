@@ -107,10 +107,13 @@ export default {
 
   //需要全部商品页对接
   beforeMount(){
-    this.productId = this.$router.params.productId
+    this.productId = this.$route.query.productId
+
+    
   },
   mounted(){
     this.getProductDet()
+   
   },
   computed:{
     // ...mapState({['productDet']})

@@ -28,7 +28,7 @@
           :key="item.id"
           @click="toDetail(item.productId)"
         >
-          <a href="##">
+          <a href="javascript:;">
             <img :src="item.picUrl" alt="" />
           </a>
         </li>

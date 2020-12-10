@@ -5,9 +5,7 @@ Vue.use(Vuex);
 
 
 import detail from '@/store/detail'
-
-import homeIndex from '@/store/homeIndex/index'
-
+import home from "@/store/home";
 const state = {};
 const mutations = {};
 const actions = {};
@@ -18,7 +16,7 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    homeIndex,
+    home,
     detail
   }
 });
