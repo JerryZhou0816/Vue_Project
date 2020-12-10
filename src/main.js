@@ -25,6 +25,7 @@ new Vue({
   store,
   beforeCreate() {
     Vue.prototype.$API = Http;
+    Vue.prototype.$BUS = this;
   },
   render: (h) => h(App),
 }).$mount("#app");

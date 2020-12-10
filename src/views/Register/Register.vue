@@ -5,10 +5,18 @@
         <h4>注册 XMall 账号</h4>
         <div class="RegisterContent">
           <div class="userName">
-            <input type="text" placeholder="账号" />
+            <input
+              type="text"
+              placeholder="账号"
+              v-model="registered.userName"
+            />
           </div>
           <div class="userPassword">
-            <input type="password" placeholder="密码" />
+            <input
+              type="password"
+              placeholder="密码"
+              v-model="registered.userPwd"
+            />
           </div>
           <div class="userPassword2">
             <input type="password" placeholder="密码" />
@@ -26,7 +34,7 @@
             </label>
           </div>
           <div class="register">
-            <input type="button" value="注册" />
+            <input type="button" value="注册" @click="toRegister" />
           </div>
           <div class="line"></div>
           <div class="footer">
@@ -45,9 +53,24 @@
 <script>
 export default {
   name: "Register",
+  data() {
+    return {
+      registered: {
+        userName: "",
+        userPwd: "",
+      },
+    };
+  },
   methods: {
     toLogin() {
       this.$router.push("/login");
+    },
+    toRegister() {
+      // let { userName, userPwd } = this;
+      // let obj = {
+      //   userName,
+      //   userPwd,
+      // };
     },
   },
 };
@@ -175,7 +198,7 @@ export default {
           input {
             width: 100%;
             height: 100%;
-            cursor: not-allowed;
+            // cursor: not-allowed;
             border: 1px solid #afafaf;
             border-radius: 4px;
             font-size: 18px;
@@ -210,7 +233,7 @@ export default {
             text-align: center;
             color: #bbb;
             font-size: 14px;
-            cursor: default;
+            // cursor: default;
             color: #999;
             a {
               color: #5079d9;
