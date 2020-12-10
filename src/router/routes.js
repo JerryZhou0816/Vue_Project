@@ -55,7 +55,7 @@ export default [
     component: () => import("../views/Home"),
   },
   {
-    path: "/detail",
+    path: "/detail/:productId",
     component: () => import("../views/Detail"),
   },
   {
