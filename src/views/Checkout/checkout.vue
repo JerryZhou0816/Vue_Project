@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- 设置发票信息 -->
       <div class="gray-box">
         <div class="title">
@@ -129,7 +129,7 @@
         </div>
       </div>
       <!-- 价格明细 -->
-     
+
       <!-- 总价格 -->
       <div class="box-inner">
         <div class="last-payment clear">
@@ -147,7 +147,7 @@
 
 <script>
 export default {
-  name: 'Checkout'
+  name: "Checkout",
 };
 </script>
 
@@ -414,6 +414,7 @@ export default {
   padding: 0 13px 0 15px;
   background: 0 0;
   border: none;
+  outline: none;
   font-size: 16px;
   color: #333;
 }
