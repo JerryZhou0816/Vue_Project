@@ -15,50 +15,52 @@
                       <span class="num">数量</span>
                       <span class="price1">单价</span>
                   </div>
-                  <div class="cart-table">
-                      <div class="cart-group pr">
-                          <div class="cart-top-items">
+                  <div class="cart-table" >
+                      <div class="cart-group pr"  >
+                          <div class="cart-top-items" v-for="(cart, index) in shopCartList"  :key="cart.productId" >
                               <div class="cart-items clearfix">
                                 <!-- 选中按钮 -->
                                 <div class="items-choose blue-checkbox-new checkbox-on">
-                                   <div class="check-box">
-                                     <img src="../../../static/images/checkbox-new_631a56a4f6.png" alt="">
+                                   <div class="check-box"  :checked="cart.isChecked === 1"
+                                         @click="updateOne(cart)">
+                                     <!-- <img src="../../../static/images/checkbox-new_631a56a4f6.png" alt=""> -->
+                                    <img src="../../../static/images/checkbox-new_631a56a4f6.png">
                                    </div>
                                 </div>
                                 <!-- 商品图片 -->
                                 <div class="items-thumb f1">
-                                    <img src="../../../static/images/dog.jpg">
+                                    <img :src="cart.productImg">
                                 </div>
                                 <!-- 商品名字 -->
-                                <div class=" name1 hide-row f1">
+                                <div class=" name1 hide-row f1" >
                                     <div class="name-table">
-                                        <a href="javascript:;">Smartisan 明信片</a>
+                                        <a href="javascript:;">{{cart.productName}}</a>
                                     </div>
                                 </div>
                                 <!-- 操作 X -->
                                 <div class="operation">
-                                    <a href="javascript:;" class="items-delete-btn">
+                                    <a href="javascript:;" class="items-delete-btn" >
                                     </a>
                                 </div>
                                 <!-- 价格 -->
                                 <div class="price1">
-                                    ¥ 9.9
+                                   {{cart.salePrice}}
                                 </div>
                                 <!-- 数量 -->
                                 <div class="amount-box">
                                     <div class="select-box">
-                                        <span class="down">-</span>
-                                        <span class="num">5</span>
-                                        <span class="up">+</span>
+                                        <a class="down"  >-</a>
+                                        <span class="num" >{{cart.productNum}}</span>
+                                        <a class="up">+</a>
                                     </div>
                                 </div>
                                 <!-- 小计 -->
                                 <div class="subtotal">
-                                    ¥ 49.5
+                                   {{  }}
                                 </div>
                               </div>
                           </div>
-                          <div class="cart-top-items">
+                          <!-- <div class="cart-top-items">
                              <div class="cart-items clearfix">
                                 <div class="items-choose blue-checkbox-new checkbox-on">
                                    <div class="check-box">
@@ -125,15 +127,13 @@
                                     ¥ 49.5
                                 </div>
                              </div>
-                          </div>
+                          </div> -->
                       </div>
                   </div>
                   <div class="cart-bottom-bg fix-bottom">
                       <div class="fix-bottom-inner">
                           <div class="cart-bar-operation">
                               <div class="choose-all">
-                                  <!-- <span class="blue-checkbox-new"></span> -->
-                                   <!-- <div class="items-choose blue-checkbox-new checkbox-on"> -->
                                    <div class="check-box blue-checkbox-new">
                                      <img src="../../../static/images/checkbox-new_631a56a4f6.png" alt="">
                                   </div>
@@ -141,13 +141,13 @@
                                   <span class="choose-all">全选</span>
                                    
                               </div>
-                              <div class="delete-choose-goods">删除选中的商品</div>
+                              <div class="delete-choose-goods" >删除选中的商品</div>
                           </div>
                           <div class="shipping">
                               <div class="shipping-box">
                                   <div class="shipping-total shipping-num">
                                       <h4 class="highlight">
-                                        已选择<i>6</i>件商品
+                                        已选择 <span>{{ 10 }}</span>件商品
                                       </h4>
                                       <h5>共计<i>6</i>件商品</h5>
                                   </div>
@@ -160,9 +160,9 @@
                                       <h5>应付总额不含运费</h5>
                                   </div>
                               </div>
-                              <input type="button" value="现在结算" readonly="readonly" class="big-main-btn main-btn"
-                              style="margin: 0px; width: 130px; height: 50px; line-height: 50px; font-size: 16px;"
-                              >
+                              <input  type="button" readonly="readonly" class="big-main-btn main-btn" value="点击结算"
+                              style="text-aligh:center; margin: 0px; width: 130px; height: 50px; line-height: 50px; font-size: 16px;"
+                              />
                           </div>
                       </div>
                   </div>
@@ -174,13 +174,146 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: '',
-   data() {
-    return {
-      input: '',
-    }
-   }
+  name: "ShopCart",
+  mounted() {
+    this.getShopCartList();
+  },
+  methods: {
+    getShopCartList() {
+      this.$store.dispatch("getShopCartList",{userId:62})
+    },
+  
+
+    // 修改购物车商品的数量
+    async changeproductNum(cart, disNum, flag) {
+      //第二种版本    disNum可能拿到的是点击+-的值，这个值是变化的量
+      //         disNum可能拿到的是输入框输入的值，这个值不是变化的量，而最终修改完成后的值
+      if (flag) {
+        if (disNum < 1) {
+          disNum = 1;
+        }
+        disNum -= cart.productNum;
+      } else {
+        if (cart.productNum + disNum < 1) {
+          disNum = 1 - cart.productNum;
+        }
+      }
+    
+      try {
+        const result = await this.$store.dispatch("addOrUpdateShopCart", {
+          productId: cart.productId,
+          productNum: disNum,
+        });
+        if (result === "ok") {
+          alert("修改购物车数量成功");
+          this.getShopCartList();
+        } else {
+          alert("修改购物车商品数量失败");
+        }
+      } catch (error) {
+        alert("修改购物车商品数量失败" + error.message);
+      }
+      
+    },
+
+    // //修改购物车选中状态单个的
+     async updateOne(cart) {
+      //发请求把后端数据当中checked修改为取反的值
+       try {
+       const result = await this.$store.dispatch("updateCart", {
+           productId: cart.productId,
+           checked: cart.isChecked ? 0 : 1,
+         });
+         //修改成功 重新获取当前页面数据
+         if (result === "ok") {
+           alert("修改成功");
+           this.getShopCartList();
+        } else {
+           alert("修改状态失败");
+         }
+       } catch (error) {
+        //修改失败 提示
+         alert("修改状态失败");
+      }
+    },
+
+    // 删除单个的购物车信息
+    // async deleteOne(cart) {
+    //  try {
+    //     const result = await this.$store.dispatch("deleteCart", cart.productId);
+    //     if (result === "ok") {
+    //       alert("删除成功");
+    //       this.getShopCartList();
+    //     } else {
+    //       alert("删除失败");
+    //     }
+    //   } catch (error) {
+    //     alert("删除失败");
+    //   }
+    // },
+    // // 删除所有选中的
+    // async deleteAll(){
+    //   try {
+    //     await this.$store.dispatch('deleteCartAll')
+    //     alert('删除成功')
+    //     this.getShopCartList()
+    //   } catch (error) {
+    //     alert('删除失败')
+    //   }
+    // }
+  },
+  computed: {
+    ...mapState({
+      shopCartList: (state) => state.shopcart.shopCartList,
+    }),
+  
+    checkedNum() {
+        
+      return this.shopCartList.reduce((prev, item) => {
+        if (item.checked) {
+          prev += item.productNum;
+        }
+        return prev;
+      }, 0);
+    
+
+    // allMoney() {
+    //   return this.shopCartList.reduce((prev, item) => {
+    //     if (item.checked) {
+    //       prev += item.productNum * item.salePrice;
+    //     }
+    //     return prev;
+    //   }, 0);
+    // },
+
+    // isAllCheck: {
+    //   get() {
+    //     return (
+    //       this.shopCartList.every((item) => item.checked) &&
+    //       this.shopCartList.length > 0
+    //     );
+    //   },
+//       async set(val) {
+//         //要发请求 把所有的购物车信息选中状态全部改为，全选修改后的状态
+//         try {
+//           //this.$store.dispatch('updateCartAll',val?1:0) 是promise  是async函数的返回值promise 不是return后面的promise
+//           // async返回的promise成功和失败看的是return后面的promise
+//           //return后面的promise是成功的，那么async函数返回的promise就是成功的，成功的结果是return 后面promise 成功的结果
+//           const result = await this.$store.dispatch(
+//             "updateCartAll",
+//             val ? 1 : 0
+//           );
+//           alert("修改全选成功");
+//           this.getShopCartList();
+//         } catch (error) {
+//           alert("全选修改失败");
+//         }
+//       },
+//     },
+  },
+  },
 }
 </script>
 <style lang='less' scoped>
@@ -529,7 +662,7 @@ export default {
     font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,
     \\5FAE\8F6F\96C5\9ED1,STHeiti,\\534E\6587\7EC6\9ED1,sans-serif;
     }
-     h4{
+    h4{
     font-weight: 400;
     }
     .page-cart .shipping-total.shipping-num i{
