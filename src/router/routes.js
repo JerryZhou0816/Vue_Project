@@ -4,7 +4,7 @@ import MyPreferential from "@/views/MyPreferential";
 import MyNew from "@/views/MyNew";
 import MyAfterSales from "@/views/MyAfterSales";
 import MyProgress from "@/views/MyProgress";
-import Myaddress from "@/views/Myaddress"
+import Myaddress from "@/views/Myaddress";
 
 export default [
   {

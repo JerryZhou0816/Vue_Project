@@ -70,7 +70,7 @@
     <nav
       class="navContainer"
       id="searchBar"
-      v-show="$route.path !== '/myorder'"
+      v-show="$route.path.indexOf('my') === -1"
     >
       <div class="navSub" :class="searchBarFixed == true ? 'isFixed' : ''">
         <ul class="navList">
