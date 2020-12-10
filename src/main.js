@@ -23,6 +23,8 @@ Vue.config.productionTip = false;
 //使用ui
 // Vue.use(ElementUI);
 
+//引入和表单验证相关的模块
+
 new Vue({
   router,
   store,

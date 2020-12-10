@@ -7,19 +7,24 @@
           <div class="userName">
             <input
               type="text"
+              v-model="admin"
+              name="admin"
               placeholder="账号"
-              v-model="registered.userName"
+              v-validate="{ required: true, regex: /^1\d{3}$/ }"
+              :class="{ invalid: error.has('admin') }"
             />
           </div>
           <div class="userPassword">
             <input
               type="password"
+              v-model="password"
               placeholder="密码"
-              v-model="registered.userPwd"
+              v-vadilate="{ required: true, regex: /^\w{3,10}$/ }"
+              :class="{ invalid: errors.has('password') }"
             />
           </div>
           <div class="userPassword2">
-            <input type="password" placeholder="密码" />
+            <input type="password" v-model="password2" placeholder="确认密码" />
           </div>
           <div class="check">
             <input type="text" />
@@ -34,7 +39,7 @@
             </label>
           </div>
           <div class="register">
-            <input type="button" value="注册" @click="toRegister" />
+            <input type="button" value="注册" />
           </div>
           <div class="line"></div>
           <div class="footer">
@@ -55,22 +60,25 @@ export default {
   name: "Register",
   data() {
     return {
-      registered: {
-        userName: "",
-        userPwd: "",
-      },
+      admin: "",
+      password: "",
     };
   },
+  // 组件路由守卫
+  // 在渲染该组件的对应的路由被confirm前调用不能获取该组件实例this
+  // 因为当守卫执行前，组件实例还没有被创建
+  // beforeRouterEnter(to, from, next) {
+  //   next((vm) => {
+  //     if (vm.$store.state.users.usesrInfo.name) {
+  //       next("/");
+  //     } else {
+  //       next();
+  //     }
+  //   });
+  // },
   methods: {
     toLogin() {
       this.$router.push("/login");
-    },
-    toRegister() {
-      // let { userName, userPwd } = this;
-      // let obj = {
-      //   userName,
-      //   userPwd,
-      // };
     },
   },
 };
@@ -198,7 +206,7 @@ export default {
           input {
             width: 100%;
             height: 100%;
-            // cursor: not-allowed;
+            cursor: not-allowed;
             border: 1px solid #afafaf;
             border-radius: 4px;
             font-size: 18px;
@@ -233,7 +241,7 @@ export default {
             text-align: center;
             color: #bbb;
             font-size: 14px;
-            // cursor: default;
+            cursor: default;
             color: #999;
             a {
               color: #5079d9;
