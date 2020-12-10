@@ -47,7 +47,7 @@
             <el-button
               type="primary"
               size="mini"
-              @click="$router.push('/shopcart/' + goods.productId)"
+              @click="addCart(goods.productId)"
               >加入购物车</el-button
             >
           </div>
@@ -84,13 +84,14 @@ export default {
       // priceGt: "",
       // priceLte: "",
       sortType: 1,
+      productNum: 1,
+      productId: "",
       params: {
         page: 1,
         size: 8,
         sort: "",
         priceGt: "",
         priceLte: "",
-        // id:id
       },
     };
   },
@@ -106,11 +107,11 @@ export default {
     },
     // 发送请求获取全部商品分类数据
     async getAllGoodsList(params) {
-      if(this.params.priceGt !== ''){
-        this.params.priceGt = Math.floor(this.params.priceGt)
+      if (this.params.priceGt !== "") {
+        this.params.priceGt = Math.floor(this.params.priceGt);
       }
-      if(this.params.priceLte !== ''){
-        this.params.priceLte = Math.floor(this.params.priceLte)
+      if (this.params.priceLte !== "") {
+        this.params.priceLte = Math.floor(this.params.priceLte);
       }
       try {
         const result = await this.$API.reqAllGoodsList(params);
@@ -140,10 +141,32 @@ export default {
     },
     // 根据价格排序
     sortPrice(v) {
-      v === 1 ? this.sortType = 2: this.sortType = 3;
+      v === 1 ? (this.sortType = 2) : (this.sortType = 3);
       this.params.sort = v;
       this.params.page = 1;
       this.getAllGoodsList(this.params);
+    }, 
+    //请求添加购物车
+    async addCart(productId) {
+      this.productId = productId;
+      let productNum = this.productNum;
+      let userId = 62;
+      const productInfo = {
+        productId,
+        productNum,
+        userId,
+      };
+      try {
+        const result = await this.$API.reqAddShopCart(productInfo);
+        if (result.code === 200) {
+          this.$message.success("添加购物车成功");
+          this.$router.push("/shopcart");
+        } else {
+          this.$message.error("添加购物车失败");
+        }
+      } catch (error) {
+        this.$message.error("请求添加购物车失败");
+      }
     },
   },
 };

@@ -43,7 +43,7 @@ export default [
     component: () => import("../views/Register/Register"),
   },
   {
-    path: "/shopcart/:productId",
+    path: "/shopcart",
     component: () => import("@/views/ShopCart"),
   },
   {

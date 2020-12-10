@@ -7,3 +7,10 @@ export const reqAllGoodsList = (params) => {
     params
   });
 }
+export const reqAddShopCart = (productInfo)=>{
+  return Ajax({
+    url:'/member/addCart',
+    method:'post',
+    data:productInfo
+  })
+}
