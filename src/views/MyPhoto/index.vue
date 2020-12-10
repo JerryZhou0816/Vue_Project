@@ -21,7 +21,7 @@
             <ul class="myul">
               <li><router-link to="/myorder">我的订单</router-link></li>
               <li><router-link to="/myphoto">我的资料</router-link></li>
-              <li><router-link to="">收货地址</router-link></li>
+               <li><router-link to="/myaddress">我的地址</router-link></li>
               <li><router-link to="/mypreferential">我的优惠</router-link></li>
               <li><router-link to="/myaftersales">售后服务</router-link></li>
               <li><router-link to="/mynew">以旧换新</router-link></li>
@@ -192,6 +192,11 @@ a {
   }
 }
 .photoList {
+  .photoTitle{
+      font-size: 18px;
+    font-weight: 400;
+    color: #626262;
+  }
   margin-left: 23px;
   width: 100%;
   .avatar-uploader .el-upload {

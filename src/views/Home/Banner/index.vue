@@ -20,6 +20,8 @@
       <!-- <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div> -->
     </div>
+
+   
     <!-- 推荐列表 -->
     <div class="recommendContainer">
       <ul class="recommendList" v-if="banner[0]">
@@ -115,8 +117,8 @@ export default {
   }
 }
 .swiper-slide {
-  margin-top: 20px;
-  border-radius: 10px;
+  // margin-top: 20px;
+  // border-radius: 10px;
   img {
     overflow: hidden;
     border-radius: 10px;

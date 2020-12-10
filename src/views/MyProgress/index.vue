@@ -21,7 +21,7 @@
             <ul class="myul">
               <li><router-link to="/myorder">我的订单</router-link></li>
               <li><router-link to="/myphoto">我的资料</router-link></li>
-              <li><a href="javascript:;">收货地址</a></li>
+              <li><router-link to="/myaddress">我的地址</router-link></li>
               <li><router-link to="/mypreferential">我的优惠</router-link></li>
               <li><router-link to="/myaftersales">售后服务</router-link></li>
               <li><router-link to="/mynew">以旧换新</router-link></li>
@@ -30,13 +30,20 @@
         </el-aside>
         <!-- 头像列表页 -->
         <div class="address">
-          <el-card>
-            <div slot="header">
-                <h2 class="title">订单号：1551541151155</h2>
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span class="titles">订单号：1551541151155</span>
             </div>
-            <div class="imgList">
-              <img src="../../../static/images/smile.png" alt="" />
-              
+            <!-- 步骤条 -->
+            <div>
+              <el-steps :active="3">
+  <el-step title="下单" description=""></el-step>
+  <el-step title="付款" description=""></el-step>
+  <el-step title="配货" description=""></el-step>
+  <el-step title="出库" description=""></el-step>
+  <el-step title="交易成功" description=""></el-step>
+
+</el-steps>
             </div>
           </el-card>
         </div>
@@ -129,15 +136,29 @@ a {
 }
 .address {
   width: 100%;
-  .title{
-    
+  .titles {
     font-size: 18px;
     font-weight: 400;
     color: #626262;
   }
   .imgList {
     text-align: center;
-    
+  }
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both;
   }
 }
 </style>

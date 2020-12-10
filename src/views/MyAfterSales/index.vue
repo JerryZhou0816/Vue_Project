@@ -21,7 +21,7 @@
             <ul class="myul">
               <li><router-link to="/myorder">我的订单</router-link></li>
               <li><router-link to="/myphoto">我的资料</router-link></li>
-              <li><a href="javascript:;">收货地址</a></li>
+               <li><router-link to="/myaddress">我的地址</router-link></li>
               <li><router-link to="/mypreferential">我的优惠</router-link></li>
               <li><router-link to="/myaftersales">售后服务</router-link></li>
               <li><router-link to="/mynew">以旧换新</router-link></li>
@@ -32,7 +32,7 @@
         <div class="address">
           <el-card>
             <div slot="header">
-                <h2 class="title">售后服务 </h2>
+                <h2 class="titles">售后服务 </h2>
             </div>
             <div class="imgList">
               <img src="../../../static/images/support.png" alt="" />
@@ -131,7 +131,7 @@ a {
 .address {
   width: 100%;
  
-      .title{
+      .titles{
     
     font-size: 18px;
     font-weight: 400;
