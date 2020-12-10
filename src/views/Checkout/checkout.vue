@@ -11,13 +11,16 @@
           <div class="box-inner js-checkout-address-panel">
             <div class="address-common-table js-multiple-address-panel">
               <ul class="address-item-list clear js-address-item-list">
-                <li class="js-choose-address selected-address-item">
+                <li
+                  class="js-choose-address selected-address-item"
+                  v-for="(addInfo, index) in adressList"
+                  :key="addInfo.id"
+                >
                   <div class="address-item">
-                    <div class="name-section">王某某</div>
-                    <div class="mobile-section">13810000000</div>
+                    <div class="name-section">{{ addInfo.name }}</div>
+                    <div class="mobile-section">{{ addInfo.phone }}</div>
                     <div class="detail-section">
-                      北京市 市辖区 海淀区<br />
-                      上地十街辉煌国际大商西6号楼319室
+                      {{ addInfo.address }}
                     </div>
                   </div>
                   <div class="operation-section">
@@ -25,10 +28,40 @@
                     <span class="delete-btn js-delete-address">删除</span>
                   </div>
                 </li>
-                <li class="add-address-item js-add-address">
+                <li
+                  class="add-address-item js-add-address"
+                  @click="dialogFormVisible = true"
+                >
                   <p>使用新地址</p>
                 </li>
               </ul>
+              <el-dialog
+                title="收货地址"
+                :visible.sync="dialogFormVisible"
+                @close="dialogFormVisible = false"
+                width="30%"
+                center
+              >
+                <el-form :model="form">
+                  <el-form-item label="姓名" label-width="100px">
+                    <el-input v-model="form.name"></el-input>
+                  </el-form-item>
+                  <el-form-item label="手机号" label-width="100px">
+                    <el-input v-model="form.phone"></el-input>
+                  </el-form-item>
+                  <el-form-item label="地址" label-width="100px">
+                    <el-input v-model="form.address"></el-input>
+                  </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="dialogFormVisible = false"
+                    >取 消</el-button
+                  >
+                  <el-button type="primary" @click="addAddress"
+                    >确 定</el-button
+                  >
+                </div>
+              </el-dialog>
             </div>
           </div>
         </div>
@@ -79,51 +112,31 @@
             <span class="price">单价</span>
           </div>
           <div class="cart-table">
-            <div class="cart-items">
+            <div
+              class="cart-items"
+              v-for="(item, index) in shopGoods"
+              :key="item.productId"
+            >
               <div class="items-thumb">
                 <a href="javascript:;" target="_blank"
-                  ><img
-                    src="http://image.smartisanos.cn/resource/3802197aa7e78f9429eb5f6048a25047.jpg?x-oss-process=image/resize,w_80/quality,Q_100/format,webp"
+                  ><img :src="item.productImg"
                 /></a>
               </div>
               <div class="name hide-row">
                 <div class="name-cell">
                   <a
                     href="javascript:;"
-                    title="坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）"
+                    :title="item.priductName"
                     target="_blank"
-                    >坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）</a
+                    >{{ item.priductName }}</a
                   >
                 </div>
               </div>
               <div class="subtotal">
-                <div class="subtotal-cell">¥ 49.00</div>
+                <div class="subtotal-cell">¥ {{ item.salePrice }}</div>
               </div>
-              <div class="goods-num">1</div>
-              <div class="price">¥ 49.00</div>
-            </div>
-            <div class="cart-items">
-              <div class="items-thumb">
-                <a href="javascript:;" target="_blank"
-                  ><img
-                    src="http://image.smartisanos.cn/resource/3802197aa7e78f9429eb5f6048a25047.jpg?x-oss-process=image/resize,w_80/quality,Q_100/format,webp"
-                /></a>
-              </div>
-              <div class="name hide-row">
-                <div class="name-cell">
-                  <a
-                    href="javascript:;"
-                    title="坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）"
-                    target="_blank"
-                    >坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）</a
-                  >
-                </div>
-              </div>
-              <div class="subtotal">
-                <div class="subtotal-cell">¥ 49.00</div>
-              </div>
-              <div class="goods-num">1</div>
-              <div class="price">¥ 49.00</div>
+              <div class="goods-num">{{ item.productNum }}</div>
+              <div class="price">¥ {{ item.salePrice }}</div>
             </div>
           </div>
         </div>
@@ -136,9 +149,14 @@
           <span
             class="jianguo-blue-main-btn big-main-btn payment-blue-bt fn-right js-checkout"
           >
-            <a>提交订单</a>
+            <a
+              href="http://xmall.exrick.cn/#/order/payment?orderId=160761988934086"
+              >提交订单</a
+            >
           </span>
-          <span class="prices fn-right">应付金额： <em>¥ 297.00</em></span>
+          <span class="prices fn-right"
+            >应付金额： <em>¥ {{ money }}</em></span
+          >
         </div>
       </div>
     </div>
@@ -146,8 +164,57 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Checkout",
+
+  data() {
+    return {
+      shopCartList: [],
+      adressList: [
+        {
+          id: Date.now(),
+          name: "王某某",
+          phone: "13810000000",
+          address: "北京市 市辖区 海淀区 上地十街辉煌国际大商西6号楼319室",
+        },
+        {
+          id: Date.now() + 1,
+          name: "于某某",
+          phone: "13813340000",
+          address: "北京市 市辖区 昌平区 北七家镇宏福科技园尚硅谷",
+        },
+      ],
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      form: {},
+    };
+  },
+  mounted() {
+    this.getShopCartList();
+  },
+  methods: {
+    getShopCartList() {
+      this.$store.dispatch("getShopCartList", { userId: 62 });
+    },
+    addAddress() {
+      this.dialogFormVisible = false;
+      this.adressList.push(this.form);
+
+      this.form = {};
+    },
+  },
+  computed: {
+    ...mapState({
+      shopGoods: (state) => state.shopcart.shopCartList,
+    }),
+    money() {
+      return this.shopGoods.reduce((prv, item) => {
+        prv += item.salePrice * item.productNum;
+        return prv;
+      }, 0);
+    },
+  },
 };
 </script>
 

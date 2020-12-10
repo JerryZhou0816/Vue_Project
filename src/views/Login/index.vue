@@ -101,6 +101,10 @@ export default {
           this.$message.success("登录成功");
           // 跳转到主页面
           this.$router.replace("/");
+          // 刷新页面
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
         } else {
           this.$message.error("登录失败");
         }
@@ -112,6 +116,9 @@ export default {
     // 点击返回按钮，会到主页
     Return() {
       this.$router.replace("/");
+      setTimeout(() => {
+        location.reload();
+      }, 100);
     },
     // 点击图片，提示该功能尚未开发
     img() {
@@ -131,7 +138,7 @@ export default {
   height: 100%;
   overflow: hidden;
   .Container {
-    margin-top: 50px;
+    margin: 50px 0 120px 0;
     .LoginContainer {
       width: 400px;
       height: 600px;

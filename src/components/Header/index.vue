@@ -1,98 +1,108 @@
 <template>
-  <div>
-    <div class="headerContanier">
-      <!-- 头部 -->
-      <header>
-        <!-- logo图标 -->
-        <div class="logo">
-          <router-link to="/" title="Xamll商城"></router-link>
+  <div class="headerContanier">
+    <!-- 头部 -->
+    <header>
+      <!-- logo图标 -->
+      <div class="logo">
+        <router-link to="/" title="Xamll商城"></router-link>
+      </div>
+      <!-- 搜索框，全部商品以及登录 -->
+      <div class="rightBox">
+        <div>
+          <el-input
+            v-model="searchInfo"
+            placeholder="请输入商品信息"
+          ></el-input>
+          <i class="el-icon-search search"></i>
         </div>
-        <!-- 搜索框，全部商品以及登录 -->
-        <div class="rightBox">
-          <div>
-            <el-input
-              v-model="searchInfo"
-              placeholder="请输入商品信息"
-            ></el-input>
-            <i class="el-icon-search search"></i>
-          </div>
-          <div>
-            <router-link to="/allgoods"> 全部商品</router-link>
-          </div>
-          <a href="javascript:;" @click="toLogin">登录</a>
-          <a href="javascript:;">{{}}</a>
-          <i class="xian"></i>
-          <!-- 登录下拉 -->
-          <div class="user">
-            <el-dropdown trigger="hover">
-              <!-- 登录图标 -->
-              <a class="el-icon-user-solid" href="##"></a>
-              <!-- 移入显示下拉菜单 -->
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
-                  <router-link to="/myorder">我的订单</router-link>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <router-link to="/myorder">账号资料</router-link>
-                </el-dropdown-item>
-                <el-dropdown-item>收货地址</el-dropdown-item>
-                <el-dropdown-item>售后服务</el-dropdown-item>
-                <el-dropdown-item class="logout">退出登录</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </div>
-          <div class="shopcart">
-            <el-dropdown trigger="hover">
-              <a class="el-icon-shopping-cart-2" href="##"></a>
-              <el-dropdown-menu slot="dropdown" size="medium">
-                <el-dropdown-item>
-                  <span>您的购物车竟然是空的!</span>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <span class="cart-num">
-              <i class="num">0</i>
-            </span>
-          </div>
+        <div>
+          <router-link to="/allgoods"> 全部商品</router-link>
         </div>
-      </header>
-      <!-- 导航栏 -->
-      <nav
-        class="navContainer"
-        id="searchBar"
-        v-show="$route.path !== '/myorder'"
-      >
-        <div class="navSub" :class="searchBarFixed == true ? 'isFixed' : ''">
-          <ul class="navList">
-            <li>
-              <router-link to="/">首页</router-link>
-            </li>
-            <li>
-              <router-link to="/allgoods">全部</router-link>
-            </li>
-            <li>
-              <router-link to="/surrounding">品牌周边</router-link>
-            </li>
-            <li>
-              <a href="##">坚果手机</a>
-            </li>
-            <li>
-              <a href="##">TNT</a>
-            </li>
-            <li>
-              <a href="##">官网自营</a>
-            </li>
-            <li>
-              <a href="##">服务箱包</a>
-            </li>
-          </ul>
+        <div>
+          <a v-if="!users" href="javascript:;" @click="toLogin">登录</a>
+          <a v-else href="javascript:;">{{ users.data.username }}</a>
         </div>
-      </nav>
-    </div>
+
+        <i class="xian"></i>
+        <!-- 登录下拉 -->
+        <div class="user" v-if="users">
+          <el-dropdown trigger="hover" @command="logout">
+            <!-- 登录图标 -->
+            <a class="el-icon-user-solid" href="javascript:;"></a>
+            <!-- 移入显示下拉菜单 -->
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <router-link to="/myorder">我的订单</router-link>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <router-link to="/myorder">账号资料</router-link>
+              </el-dropdown-item>
+              <el-dropdown-item>收货地址</el-dropdown-item>
+              <el-dropdown-item>售后服务</el-dropdown-item>
+              <el-dropdown-item command="ab">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        <div class="login" v-else>
+          <a
+            class="el-icon-user-solid"
+            href="javascript:;"
+            style="font-size:22px"
+            @click="$router.push('/login')"
+          ></a>
+        </div>
+        <div class="shopcart">
+          <el-dropdown trigger="hover">
+            <a class="el-icon-shopping-cart-2" href="javascript:;"></a>
+            <el-dropdown-menu slot="dropdown" size="medium">
+              <el-dropdown-item>
+                <span>您的购物车竟然是空的!</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <span class="cart-num">
+            <i class="num">0</i>
+          </span>
+        </div>
+      </div>
+    </header>
+    <!-- 导航栏 -->
+    <nav
+      class="navContainer"
+      id="searchBar"
+      v-show="$route.path !== '/myorder'"
+    >
+      <div class="navSub" :class="searchBarFixed == true ? 'isFixed' : ''">
+        <ul class="navList">
+          <li>
+            <router-link to="/">首页</router-link>
+          </li>
+          <li>
+            <router-link to="/allgoods">全部</router-link>
+          </li>
+          <li>
+            <router-link to="/surrounding">品牌周边</router-link>
+          </li>
+          <li>
+            <a href="javascript:;">坚果手机</a>
+          </li>
+          <li>
+            <a href="javascript:;">TNT</a>
+          </li>
+          <li>
+            <a href="javascript:;">官网自营</a>
+          </li>
+          <li>
+            <a href="javascript:;">服务箱包</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "headerIndex",
   data() {
@@ -117,13 +127,30 @@ export default {
         ? (this.searchBarFixed = true)
         : (this.searchBarFixed = false);
     },
+    // 退出登录
+    logout(command) {
+      if (command === "ab") {
+        //从本地缓存中移除用户信息
+        localStorage.removeItem("USERINFO_KEY");
+        this.$message.success("退出登录成功！");
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      } else {
+        return false;
+      }
+    },
   },
 
   // 导航栏固定事件
   mounted() {
+    // 监听鼠标滚轮事件
     window.addEventListener("scroll", this.handlerScroll);
+    // 从localstorage里获取用户数据
   },
-  beforeMount() {},
+  computed: {
+    ...mapGetters(["users"]),
+  },
 };
 </script>
 

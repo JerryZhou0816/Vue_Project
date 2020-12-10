@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import routes from "./routes";
+import store from "@/store";
 Vue.use(VueRouter);
 
 // const Detail = () => import('../views/Detail')
@@ -26,8 +28,6 @@ VueRouter.prototype.replace = function(location, resolved, rejected) {
   }
 };
 
-import routes from "./routes";
-
 const router = new VueRouter({
   mode: "history",
   routes,
@@ -35,5 +35,24 @@ const router = new VueRouter({
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
   },
+});
+let userInfo = store.getters.users;
+console.log(userInfo);
+//  配置全局路由守卫
+router.beforeEach((to, from, next) => {
+  if (userInfo !== undefined) {
+    next();
+  } else {
+    if (
+      to.path.indexOf("/shopcart") === 0 ||
+      to.path.indexOf("/checkout") === 0 ||
+      to.path.indexOf("/myorder") === 0
+    ) {
+      alert("请先登录，即将跳转到登录页·····");
+      next("/login?redirect=" + to.path);
+    } else {
+      next();
+    }
+  }
 });
 export default router;

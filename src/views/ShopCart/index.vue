@@ -48,7 +48,12 @@
                     </div>
                     <!-- 操作 X -->
                     <div class="operation">
-                      <a href="javascript:;" class="items-delete-btn"> </a>
+                      <a
+                        href="javascript:;"
+                        class="items-delete-btn"
+                        @click="deleteCart(cart, index)"
+                      >
+                      </a>
                     </div>
                     <!-- 价格 -->
                     <div class="price1">
@@ -57,85 +62,27 @@
                     <!-- 数量 -->
                     <div class="amount-box">
                       <div class="select-box">
-                        <a class="down">-</a>
-                        <span class="num">{{ cart.productNum }}</span>
-                        <a class="up">+</a>
+                        <a
+                          class="down"
+                          @click="
+                            cart.productNum <= 0
+                              ? cart.productNum
+                              : cart.productNum--
+                          "
+                          >-</a
+                        >
+                        <span class="num">{{
+                          parseFloat(cart.productNum)
+                        }}</span>
+                        <a class="up" @click="cart.productNum++">+</a>
                       </div>
                     </div>
                     <!-- 小计 -->
                     <div class="subtotal">
-                      {{}}
+                      {{ cart.productNum * cart.salePrice }}
                     </div>
                   </div>
                 </div>
-                <!-- <div class="cart-top-items">
-                             <div class="cart-items clearfix">
-                                <div class="items-choose blue-checkbox-new checkbox-on">
-                                   <div class="check-box">
-                                     <img src="../../../static/images/checkbox-new_631a56a4f6.png" alt="">
-                                   </div>
-                                </div>
-                                <div class="items-thumb f1">
-                                    <img src="../../../static/images/dog.jpg">
-                                </div>
-                                <div class=" name1 hide-row f1">
-                                    <div class="name-table">
-                                        <a href="javascript:;">Smartisan 明信片</a>
-                                    </div>
-                                </div>
-                                <div class="operation">
-                                    <a href="javascript:;" class="items-delete-btn">
-                                    </a>
-                                </div>
-                                <div class="price1">
-                                    ¥ 9.9
-                                </div>
-                                <div class="amount-box">
-                                    <div class="select-box">
-                                        <span class="down">-</span>
-                                        <span class="num">5</span>
-                                        <span class="up">+</span>
-                                    </div>
-                                </div>
-                                <div class="subtotal">
-                                    ¥ 49.5
-                                </div>
-                             </div>
-                          </div>
-                          <div class="cart-top-items">
-                             <div class="cart-items clearfix">
-                                <div class="items-choose blue-checkbox-new checkbox-on">
-                                   <div class="check-box">
-                                     <img src="../../../static/images/checkbox-new_631a56a4f6.png" alt="">
-                                   </div>
-                                </div>
-                                <div class="items-thumb f1">
-                                    <img src="../../../static/images/dog.jpg">
-                                </div>
-                                <div class=" name1 hide-row f1">
-                                    <div class="name-table">
-                                        <a href="javascript:;">Smartisan 明信片</a>
-                                    </div>
-                                </div>
-                                <div class="operation">
-                                    <a href="javascript:;" class="items-delete-btn">
-                                    </a>
-                                </div>
-                                <div class="price1">
-                                    ¥ 9.9
-                                </div>
-                                <div class="amount-box">
-                                    <div class="select-box">
-                                        <span class="down">-</span>
-                                        <span class="num">5</span>
-                                        <span class="up">+</span>
-                                    </div>
-                                </div>
-                                <div class="subtotal">
-                                    ¥ 49.5
-                                </div>
-                             </div>
-                          </div> -->
               </div>
             </div>
             <div class="cart-bottom-bg fix-bottom">
@@ -157,16 +104,19 @@
                   <div class="shipping-box">
                     <div class="shipping-total shipping-num">
                       <h4 class="highlight">
-                        已选择 <span>{{ 10 }}</span
+                        已选择 <span>{{ isChecked }}</span
                         >件商品
                       </h4>
-                      <h5>共计<i>6</i>件商品</h5>
+                      <h5>
+                        共计<i>{{ 6 }}</i
+                        >件商品
+                      </h5>
                     </div>
                     <div class="shipping-total shipping-num">
                       <h4 class="highlight">
                         应付总额:
                         <span>￥</span>
-                        <i>128.5</i>
+                        <i>{{ money }}</i>
                       </h4>
                       <h5>应付总额不含运费</h5>
                     </div>
@@ -177,7 +127,7 @@
                     class="big-main-btn main-btn"
                     value="点击结算"
                     style="text-aligh:center; margin: 0px; width: 130px; height: 50px; line-height: 50px; font-size: 16px;"
-                    @click="$router.push('/checkout')"
+                    @click="checkOut"
                   />
                 </div>
               </div>
@@ -200,7 +150,11 @@ export default {
     getShopCartList() {
       this.$store.dispatch("getShopCartList", { userId: 62 });
     },
-
+    deleteCart(cart, index) {
+      this.shopCartList.splice(index, 0);
+      console.log(this.shopCartList);
+      return this.shopCartList;
+    },
     // 修改购物车商品的数量
     async changeproductNum(cart, disNum, flag) {
       //第二种版本    disNum可能拿到的是点击+-的值，这个值是变化的量
@@ -252,31 +206,11 @@ export default {
         alert("修改状态失败");
       }
     },
-
-    // 删除单个的购物车信息
-    // async deleteOne(cart) {
-    //  try {
-    //     const result = await this.$store.dispatch("deleteCart", cart.productId);
-    //     if (result === "ok") {
-    //       alert("删除成功");
-    //       this.getShopCartList();
-    //     } else {
-    //       alert("删除失败");
-    //     }
-    //   } catch (error) {
-    //     alert("删除失败");
-    //   }
-    // },
-    // // 删除所有选中的
-    // async deleteAll(){
-    //   try {
-    //     await this.$store.dispatch('deleteCartAll')
-    //     alert('删除成功')
-    //     this.getShopCartList()
-    //   } catch (error) {
-    //     alert('删除失败')
-    //   }
-    // }
+    // 点击结算，跳转到收货人地址
+    checkOut() {
+      this.$emit("shopcart", this.shopCartList);
+      this.$router.push("/checkout");
+    },
   },
   computed: {
     ...mapState({
@@ -290,40 +224,18 @@ export default {
         }
         return prev;
       }, 0);
-
-      // allMoney() {
-      //   return this.shopCartList.reduce((prev, item) => {
-      //     if (item.checked) {
-      //       prev += item.productNum * item.salePrice;
-      //     }
-      //     return prev;
-      //   }, 0);
-      // },
-
-      // isAllCheck: {
-      //   get() {
-      //     return (
-      //       this.shopCartList.every((item) => item.checked) &&
-      //       this.shopCartList.length > 0
-      //     );
-      //   },
-      //       async set(val) {
-      //         //要发请求 把所有的购物车信息选中状态全部改为，全选修改后的状态
-      //         try {
-      //           //this.$store.dispatch('updateCartAll',val?1:0) 是promise  是async函数的返回值promise 不是return后面的promise
-      //           // async返回的promise成功和失败看的是return后面的promise
-      //           //return后面的promise是成功的，那么async函数返回的promise就是成功的，成功的结果是return 后面promise 成功的结果
-      //           const result = await this.$store.dispatch(
-      //             "updateCartAll",
-      //             val ? 1 : 0
-      //           );
-      //           alert("修改全选成功");
-      //           this.getShopCartList();
-      //         } catch (error) {
-      //           alert("全选修改失败");
-      //         }
-      //       },
-      //     },
+    },
+    money() {
+      return this.shopCartList.reduce((prev, item) => {
+        prev += item.productNum * item.salePrice;
+        return prev;
+      }, 0);
+    },
+    isChecked() {
+      return this.shopCartList.reduce((prev, item) => {
+        prev += item.checked === "1";
+        return prev;
+      }, 0);
     },
   },
 };

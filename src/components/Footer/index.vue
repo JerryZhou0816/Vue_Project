@@ -1,6 +1,6 @@
 <template>
   <div class="footerContainer">
-    <div class="content">
+    <div class="contente">
       <dl>
         <dt>
           <h6>订单服务</h6>
@@ -118,7 +118,7 @@ export default {
 .footerContainer {
   width: 100%;
   background-color: #fff;
-  .content {
+  .contente {
     width: 1200px;
     height: 250px;
     margin: 0 auto;
