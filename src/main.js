@@ -14,13 +14,16 @@ import "swiper/dist/css/swiper.min.css";
 import VueLazyload from "vue-lazyload";
 Vue.use(VueLazyload);
 
+//  引入mockjs
+import './mock/mockServer'
 // 引入api
 import * as Http from "@/api";
 Vue.config.productionTip = false;
 
 //引入和表单验证相关的模块
-import "./validate";
+// import "./validate";
 
+// import './utils/validate.js'
 
 new Vue({
   router,

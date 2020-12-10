@@ -17,7 +17,7 @@ VeeValidate.Validator.localize("zh_CN", {
     admin: "用户",
     password: "密码",
     password2: "确认密码",
-    code: "验证码",
+    //code: "验证码",
     isCheck: "协议",
   },
 });

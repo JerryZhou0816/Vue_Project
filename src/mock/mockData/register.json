@@ -1,0 +1,21 @@
+{
+    "code": 200,
+    "message": "success",
+    "result": {
+        "address": null,
+        "balance": null,
+        "description": null,
+        "email": null,
+        "file": "http://img.exrick.cn/1607514502638.png",
+        "id": 62,
+        "message": null,
+        "phone": null,
+        "points": null,
+        "sex": null,
+        "state": 1,
+        "token": "fb10cddf-1e4f-4a19-9980-6a27aa65da8f",
+        "username": "test"
+    },
+    "success": true,
+    "timestamp": 1607569096406
+}
