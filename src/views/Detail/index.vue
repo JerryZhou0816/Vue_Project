@@ -1,6 +1,7 @@
 <template>
   <div class="detail">
-    <!-- 详情 -->
+    <div class="heart">
+          <!-- 详情 -->
     <div class="shop">
       <!-- 图片列表 -->
       <div class="imageList" >
@@ -8,7 +9,7 @@
           v-for="(item,index) in productDet.productImageSmall" :key="index" 
           @click="changeState(index)"
           :class="flag === index ? 'active' : ''"
-          :src="item[index]"
+          :src="item"
         />
         <!-- <img
           @click="changeState(index)"
@@ -18,11 +19,11 @@
       </div>
       <!-- 大图 -->
       <!-- @mousemove="move" -->
-      <div class="bigImage">
+      <div class="bigImage" v-if="productDet.productImageSmall" >
         <!-- <img
           src="https://resource.smartisan.com/resource/7ac3af5a92ad791c2b38bfe1e38ee334.jpg"
         /> -->
-        <img :src="item[index]" />
+        <img :src="productDet.productImageSmall[index]" />
 
         <!-- <div class="mask" ref="mask"></div> -->
 
@@ -68,10 +69,13 @@
       <!-- <img
         src="https://resource.smartisan.com/resource/a1f3fbf662376e8684e528f05721b286.jpg"
       />    -->
-      <img
+      <!-- <img
         :src="productDet.productImageBig"
-      />
+      /> -->
+      <div v-html="productDet.detail" class="image"></div>
     </div>
+    </div>
+
   </div>
 </template>
 
@@ -81,8 +85,8 @@ export default {
   name: "",
   data() {
     return {
-      productId:'150642571432849',
-      flag: 0,
+      productId:150642571432851,
+      flag: 0,//标志
       productNum: 1,
       index: 0,
       //   num: 1,
@@ -101,13 +105,14 @@ export default {
     };
   },
   beforeMount(){
-    // this.productId=this.$router.params.productId
+    this.productId = this.$router.params.productId
   },
   mounted(){
     this.getProductDet()
   },
   computed:{
-    ...mapState({productDet:state=>state.productDet})
+    // ...mapState({['productDet']})
+    ...mapState({productDet:state=>state.detail.productDet})
   },
   methods: {
 
@@ -171,22 +176,30 @@ export default {
     //添加购物车
     async addCart() {
       let {productId,productNum} =this
+      let userId= 62
+      const productInfo={
+        productId,
+        productNum,
+        userId
+      }
       try {
-        const result = await this.$store.dispatch('addShopCart',{productId,productNum})
+        const result = await this.$store.dispatch('addShopCart',productInfo)
+        console.log(result);
         if(result === 'ok'){
           alert('添加购物车成功')
+          this.$router.push('/shopshat')
         }
         else{
           alert('添加购物车失败')
           // this.$router.push('/login')
         }
       } catch (error) {
-        alert('添加购物车失败')
+        alert('请求添加购物车失败')
       }
     },
-    //去结算页面
+    //去结算页面,带上商品ID
     toCheckout() {
-      this.$router.push({path:"/checkout",query:{productId:this.productId}});
+      this.$router.push({path:"/checkout",query:{productId:this.productId,productNum:this.productNum}});
     },
 
     // handleChange(value) {
@@ -200,9 +213,13 @@ export default {
 .detail {
   background-color: #eee;
   width: 100%;
+  // height: 19999px;
   height: 100%;
-
-  .shop {
+  .heart{
+    height: 100%;
+    width: 1220px;
+    margin: 0 auto;
+      .shop {
     width: 1220px;
     height: 562px;
     background-color: white;
@@ -361,30 +378,36 @@ export default {
       }
     }
   }
-}
-.productInfo {
-  width: 1220px;
-  margin: 0px auto;
-  position: relative;
-  top: 40px;
-  background-color: white;
-  border-radius: 20px;
-  div {
-    height: 60px;
-    border: 1px solid #e6e6e6;
-    border-bottom: none;
-    border-radius: 15px 15px 0 0;
-    background-color: #f3f3f3;
-    span {
-      position: relative;
-      height: 60px;
-      line-height: 60px;
-      left: 20px;
-      font-size: 18px;
-    }
-  }
-  img {
+  .productInfo {
     width: 1220px;
-  }
+    margin: 0px auto;
+    position: relative;
+    top: 40px;
+    background-color: white;
+    border-radius: 20px;
+    div {
+      height: 60px;
+      border: 1px solid #e6e6e6;
+      border-bottom: none;
+      border-radius: 15px 15px 0 0;
+      background-color: #f3f3f3;
+      span {
+        position: relative;
+        height: 60px;
+        line-height: 60px;
+        left: 20px;
+        font-size: 18px;
+      }
+    }
+
+    .image {
+      width: 1220px;
+      z-index: 10000;
+      
+    }
 }
+  }
+
+}
+
 </style>

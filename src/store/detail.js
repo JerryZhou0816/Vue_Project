@@ -26,11 +26,8 @@ const actions = {
     //添加购物车
     async addShopCart({
         commit
-    }, {
-        productId,
-        productNum
-    }) {
-        const result = await reqAddCart(productId, productNum)
+    }, productInfo) {
+        const result = await reqAddCart(productInfo)
         if (result.code === 200) {
             return 'ok'
         } else {

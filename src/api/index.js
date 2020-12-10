@@ -11,21 +11,19 @@ export const reqAllGoodsList = () => {
 //获取商品详情   //去结算页
 export const reqProductDet = (productId) => {
   return Ajax({
-    url: `/goods/productDet/${productId}`,
+    url: `/goods/productDet/?productId=${productId}`,
     method: "get"
   })
 }
 
 //请求添加购物车
-export const reqAddCart = (productId, productNum) => {
+export const reqAddCart = (productInfo) => {
   return Ajax({
-    url: "/member/addCar",
+    url: "/member/addCart",
     // url: `/member/addCar/${productId}/${productNum}`,
     method: 'post',
-    data: {
-      productId,
-      productNum
-    }
+    data: productInfo
+
 
   })
 }

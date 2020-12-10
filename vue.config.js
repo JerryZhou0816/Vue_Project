@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     proxy: {
       "^/api": {
-        target: "http://localhost:3001",
+        target: "http://xmall.exrick.cn",
         ws: true,
         changeOrigin: true,
         pathRewrite: {

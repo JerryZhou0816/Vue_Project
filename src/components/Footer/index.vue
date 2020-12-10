@@ -117,7 +117,6 @@ export default {
 <style lang="less">
 .footerContainer {
   width: 100%;
-  height: 100%;
   background-color: #fff;
   .content {
     width: 1200px;
@@ -127,6 +126,8 @@ export default {
     display: flex;
     align-items: center;
     position: relative;
+    // bottom: 0;
+    // z-index: 100;
     dl {
       margin-right: 90px;
       dt {
