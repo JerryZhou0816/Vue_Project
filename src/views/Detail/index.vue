@@ -85,7 +85,7 @@ export default {
   name: "",
   data() {
     return {
-      productId:150642571432851,
+      productId:'',
       flag: 0,//标志
       productNum: 1,
       index: 0,
@@ -104,6 +104,8 @@ export default {
       // ],
     };
   },
+
+  //需要全部商品页对接
   beforeMount(){
     this.productId = this.$router.params.productId
   },
@@ -112,7 +114,9 @@ export default {
   },
   computed:{
     // ...mapState({['productDet']})
-    ...mapState({productDet:state=>state.detail.productDet})
+    ...mapState({productDet:state=>state.detail.productDet}),
+    
+    
   },
   methods: {
 
@@ -402,7 +406,8 @@ export default {
 
     .image {
       width: 1220px;
-      z-index: 10000;
+      height: 100%;
+      // z-index: 10000;
       
     }
 }
