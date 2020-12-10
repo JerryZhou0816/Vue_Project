@@ -5,19 +5,23 @@
       <div class="hotTitle">
         <h4>热门商品</h4>
       </div>
-      <div class="hotGoods">
-        <div class="hotItem" v-for="(hot, index) in hotList" :key="hot.id">
+      <div class="hotGoods" v-for="(hot, index) in hotList" :key="hot.id">
+        <div
+          class="hotItem"
+          v-for="(hotItem, index) in hot.panelContents"
+          :key="hotItem.id"
+          @click="toDetail(hotItem.productId)"
+        >
           <div class="good-img">
-            <a href="##">
-              <img :src="hot.picUrl" alt="" />
+            <a href="javascript:;">
+              <img :src="hotItem.picUrl" alt="" />
             </a>
           </div>
-          <h3>{{ hot.productName }}</h3>
-          <h6>{{ hot.subTitle }}</h6>
+          <h3>{{ hotItem.productName }}</h3>
+          <h6>{{ hotItem.subTitle }}</h6>
           <div class="price">
-            <div></div>
             <p>
-              <span>¥{{ hot.salePrice }}.00</span>
+              <span>¥{{ hotItem.salePrice }}.00</span>
             </p>
           </div>
         </div>
@@ -25,303 +29,36 @@
     </div>
 
     <!-- 官网推荐 -->
-    <div class="handpickContent">
+    <div class="handpickContent" v-for="(rec, index) in recommend" :key="index">
       <div class="hotTitle">
-        <h4>官方精选</h4>
+        <h4>{{ rec.name }}</h4>
       </div>
       <div class="handpickContainer">
-        <div class="handpickFirst">
-          <img src="./images/item3.jpg" alt="" />
+        <div
+          class="handpickFirst"
+          @click="toDetail(rec.panelContents[0].productId)"
+        >
+          <a href="javascript:;" class="cover-link"> </a>
+          <img :src="rec.panelContents[0].picUrl" alt="" />
         </div>
-        <div class="handpickItem">
+        <div
+          v-if="recItem.sortOrder !== 0"
+          class="handpickItem"
+          v-for="(recItem, index) in rec.panelContents"
+          :key="recItem.id"
+          @click="toDetail(recItem.productId)"
+        >
           <div class="good-img">
-            <a href="##">
-              <img src="./images/item4.jpg" alt="" />
+            <a href="javascript:;">
+              <img :src="recItem.picUrl" alt="" />
             </a>
           </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
+          <h3>{{ recItem.productName }}</h3>
+          <h6>{{ recItem.subTitle }}</h6>
           <div class="price">
             <div></div>
             <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item4.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item4.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item4.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item4.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item4.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 品牌周边 -->
-    <div class="handpickContent">
-      <div class="hotTitle">
-        <h4>品牌周边</h4>
-      </div>
-      <div class="handpickContainer">
-        <div class="handpickFirst">
-          <img src="./images/item5.jpg" alt="" />
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item6.jpg" alt="" />
-            </a>
-          </div>
-          <h3>Smartisan 帆布鞋</h3>
-          <h6>一双踏实、舒适的帆布鞋</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥199.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item6.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item4.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item6.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item6.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item6.jpg" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 品牌精选 -->
-    <div class="handpickContent">
-      <div class="hotTitle">
-        <h4>品牌精选</h4>
-      </div>
-      <div class="handpickContainer">
-        <div class="handpickFirst">
-          <img src="./images/item7.jpg" alt="" />
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item8.png" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item8.png" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item8.png" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item8.png" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item8.png" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
-            </p>
-          </div>
-        </div>
-        <div class="handpickItem">
-          <div class="good-img">
-            <a href="##">
-              <img src="./images/item8.png" alt="" />
-            </a>
-          </div>
-          <h3>支付测试商品 IPhone X 全面屏 全面绽放</h3>
-          <h6>此仅为支付测试商品 拍下不会发货</h6>
-          <div class="price">
-            <div></div>
-            <p>
-              <span>¥1.00</span>
+              <span>¥{{ recItem.salePrice }}</span>
             </p>
           </div>
         </div>
@@ -332,22 +69,22 @@
     <div class="recommendContainer">
       <ul class="recommendList">
         <li>
-          <a href="##">
+          <a href="javascript:;">
             <img src="./images/hot1.jpg" alt="" />
           </a>
         </li>
         <li>
-          <a href="##">
+          <a href="javascript:;">
             <img src="./images/hot2.jpg" alt="" />
           </a>
         </li>
         <li>
-          <a href="##">
+          <a href="javascript:;">
             <img src="./images/hot3.jpg" alt="" />
           </a>
         </li>
         <li>
-          <a href="##">
+          <a href="javascript:;">
             <img src="./images/hot4.jpg" alt="" />
           </a>
         </li>
@@ -357,11 +94,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "hot",
   computed: {
-    ...mapGetters(["hotList"]),
+    ...mapState({
+      hotList: (state) =>
+        state.home.indexData.filter((item) => item.type === 2),
+      recommend: (state) =>
+        state.home.indexData.filter((item) => item.type === 3),
+    }),
+  },
+  methods: {
+    toDetail(productId) {
+      this.$router.push({ path: "/detail", query: { productId } });
+    },
   },
 };
 </script>
@@ -403,13 +150,13 @@ export default {
       background-color: #fff;
       .hotItem {
         width: 50%;
+        height: 100%;
         position: relative;
-        transition-property: all;
-        transition-duration: 1s;
-        transition-timing-function: linear;
-        transition-delay: 2s;
+        transition: all 0.5s;
         &:hover {
-          top: -20px;
+          transform: translateY(-2px);
+          box-shadow: 1px 1px 20px #999;
+          z-index: 3;
         }
         h3 {
           font-size: 16px;
@@ -420,11 +167,14 @@ export default {
           color: #d0d0d0;
           padding: 10px;
         }
-        .price span {
-          color: #c0392b;
-          font-size: 18px;
-          font-weight: bold;
+        .price {
+          span {
+            color: #c0392b;
+            font-size: 18px;
+            font-weight: bold;
+          }
         }
+
         .good-img {
           img {
             width: 206px;
@@ -471,6 +221,13 @@ export default {
       .handpickFirst {
         width: 50%;
         height: 430px;
+        position: relative;
+
+        &:hover {
+          box-shadow: inset 0 0 38px rgba(0, 0, 0, 0.08);
+          transition: all 0.5s ease;
+        }
+
         img {
           width: 100%;
           height: 100%;
@@ -482,10 +239,15 @@ export default {
         background: #fff;
         text-align: center;
         transition: all 0.5s;
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 1px 1px 20px #999;
+        }
         h6 {
           color: #d0d0d0;
           padding: 10px;
         }
+
         .price span {
           color: #c0392b;
           font-size: 18px;

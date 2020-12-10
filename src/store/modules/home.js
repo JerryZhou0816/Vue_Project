@@ -20,7 +20,6 @@ const actions = {
 };
 const getters = {
   banner: (state) => state.indexData.filter((item) => item.type === 1) || {},
-  hotList: (state) => state.indexData[2].panelContents || {},
 };
 export default {
   state,

@@ -226,7 +226,10 @@ export default {
       z-index: 999;
       height: 60px;
       line-height: 60px;
-      background-color: #fff;
+      color: #666;
+      border-bottom: 1px solid #d4d4d4;
+      box-shadow: 0 1px 7px rgba(0, 0, 0, 0.06);
+      background-color: #ededed;
     }
     .navSub {
       width: 100%;
