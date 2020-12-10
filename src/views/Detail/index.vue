@@ -115,7 +115,7 @@ export default {
   computed:{
     // ...mapState({['productDet']})
     ...mapState({productDet:state=>state.detail.productDet}),
-    
+
     
   },
   methods: {
@@ -191,7 +191,7 @@ export default {
         console.log(result);
         if(result === 'ok'){
           alert('添加购物车成功')
-          this.$router.push('/shopshat')
+          this.$router.push('/shopcart')
         }
         else{
           alert('添加购物车失败')

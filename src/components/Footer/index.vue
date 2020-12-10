@@ -177,5 +177,5 @@ export default {
       padding: 50px 0;
     }
   }
-}</style
->>
+}
+</style>
