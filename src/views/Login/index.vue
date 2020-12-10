@@ -11,24 +11,16 @@
           <div class="userName">
             <input
               type="text"
-              v-model="admin"
-              name="admin"
+              v-model="userName"
+              name="userName"
               placeholder="账号"
-              v-validate="{ required: true, regex: /^1\d{3}$/ }"
-              :class="{ invalid: error.has('admin') }"
             />
           </div>
           <div class="userPassword">
-            <input
-              type="password"
-              v-model="password"
-              placeholder="密码"
-              v-vadilate="{ required: true, regex: /^\w{3,10}$/ }"
-              :class="{ invalid: errors.has('password') }"
-            />
+            <input type="password" v-model="password" placeholder="密码" />
           </div>
           <div class="check">
-            <input type="text" />
+            <input type="text" v-model="code" placeholder="请输入验证码" />
           </div>
           <div class="pr">
             <input type="checkbox" id="txt" />
@@ -37,20 +29,34 @@
               <a href="javascript:;" class="regiter" @click="toRegister"
                 >注册 XMall账号</a
               >
-              <!-- 这个功能暂时不做了 -->
+              <!-- 这个忘记密码功能暂时不做了 -->
               <a href="javascript:;" class="forget">忘记密码？</a>
             </div>
           </div>
-          <div class="login">
-            <input type="button" value="登录" />
-          </div>
-          <div class="return">
-            <input type="button" value="返回" />
-          </div>
+          <!-- <div class="login">
+            <input type="button" value="登录" @click="login" />
+          </div> -->
+          <el-button
+            type="primary"
+            style="height:50px;margin-top:10px;width:100%; font-size:18px"
+            @click="login"
+            >登录</el-button
+          >
+          <!-- :disabled="!(password && userName)" -->
+          <el-button
+            style="height:50px;margin-top:15px;width:100%; font-size:18px;margin-left:0;"
+            @click="Return"
+            >返回</el-button
+          >
           <div class="line"></div>
           <div class="footer">
             <span>其他账号登录：</span>
-            <img src="../../../static/images/other-login.png" alt="" />
+            <a href=""
+              ><img
+                src="../../../static/images/other-login.png"
+                alt=""
+                @click="img"
+            /></a>
           </div>
         </div>
       </div>
@@ -59,21 +65,61 @@
 </template>
 
 <script>
+import { reqLogin } from "../../api/mockIndex";
 export default {
-  name: "",
+  name: "Login",
+  data() {
+    return {
+      userName: "",
+      password: "",
+      code: "",
+    };
+  },
+
   methods: {
     toRegister() {
       this.$router.push("/register");
     },
+    // 点击登录按钮 进行登录
     async login() {
-      let { phone, password } = this;
-      if (phone && password) {
-        try {
-          const result = await this.$store.dispatch("userLogin");
-        } catch (error) {}
+      let { userName, password, code } = this;
+      console.log(userName, password);
+      if (!userName.trim() || !password.trim()) {
+        this.$message.warning("用户名或者密码不能为空");
+        return;
+      }
+      // 是否填写了验证码
+      if (!code.trim()) {
+        this.$message.warning("请完成验证");
+        return;
+      }
+      try {
+        const result = await reqLogin();
+        if (result.code === 200) {
+          //成功后，将用户名和密码存储到localStorage里面
+          localStorage.setItem("USERINFO_KEY", JSON.stringify(result.data));
+          this.$message.success("登录成功");
+          // 跳转到主页面
+          this.$router.replace("/");
+        } else {
+          this.$message.error("登录失败");
+        }
+      } catch (error) {
+        this.$messaeg.error("获取登录失败");
       }
     },
+
+    // 点击返回按钮，会到主页
+    Return() {
+      this.$router.replace("/");
+    },
+    // 点击图片，提示该功能尚未开发
+    img() {
+      this.$message.warning("此功能尚未开发");
+      return;
+    },
   },
+  mounted() {},
 };
 </script>
 
@@ -82,13 +128,13 @@ export default {
   background: url(../../../static/images/bg_9b9dcb65ff@2x.png) repeat;
   background-attachment: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   .Container {
     margin-top: 50px;
     .LoginContainer {
       width: 400px;
-      height: 674px;
+      height: 600px;
       margin: 0 auto;
       padding: 50px;
       border: 1px solid #dadada;
@@ -117,8 +163,7 @@ export default {
       }
       .content {
         width: 100%;
-        height: 432px;
-        // background-color: hotpink;
+        height: 410px;
         font-size: 14px;
         .userName {
           height: 50px;
@@ -144,7 +189,6 @@ export default {
             border-radius: 5px;
             border: 1px solid #ccc;
             font-size: 18px;
-
             text-indent: 10px;
             &:focus {
               outline: none;
@@ -159,6 +203,8 @@ export default {
             height: 100%;
             border-radius: 5px;
             border: 1px solid #ccc;
+            font-size: 18px;
+            text-indent: 10px;
             &:focus {
               outline: none;
             }
@@ -210,8 +256,8 @@ export default {
             border-radius: 4px;
             font-size: 18px;
             color: #fff;
-            background-color: #a9a9a9;
-            background-image: linear-gradient(180deg, #b8b8b8, #a9a9a9);
+            background-color: #33448b;
+            // background-image: linear-gradient(180deg, #b8b8b8, #a9a9a9);
 
             &:focus {
               outline: none;
@@ -225,29 +271,6 @@ export default {
             //   background-color: #a9a9a9;
             //   background-image: linear-gradient(180deg, #b8b8b8, #a9a9a9);
             // }
-          }
-        }
-        .return {
-          height: 48px;
-          line-height: 48px;
-          border-radius: 5px;
-          background-color: #f9f9f9;
-          border: 1px solid #e1e1e1;
-          margin-top: 10px;
-          margin-bottom: 15px;
-          width: 100%;
-          font-size: 18px;
-          color: #646464;
-          input {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            color: #646464;
-            background-color: #f9f9f9;
-
-            &:focus {
-              outline: none;
-            }
           }
         }
         .line {

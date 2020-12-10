@@ -36,11 +36,11 @@ export default [
   },
   {
     path: "/login",
-    component: () => import("../views/Login/Login"),
+    component: () => import("../views/Login"),
   },
   {
     path: "/register",
-    component: () => import("../views/Register/Register"),
+    component: () => import("../views/Register"),
   },
   {
     path: "/shopcart",

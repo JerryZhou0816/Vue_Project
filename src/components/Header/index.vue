@@ -20,7 +20,7 @@
             <router-link to="/allgoods"> 全部商品</router-link>
           </div>
           <a href="javascript:;" @click="toLogin">登录</a>
-
+          <a href="javascript:;">{{}}</a>
           <i class="xian"></i>
           <!-- 登录下拉 -->
           <div class="user">
@@ -33,7 +33,7 @@
                   <router-link to="/myorder">我的订单</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item>
-                  <router-link to="/myorder">账号资料</router-link>账号资料
+                  <router-link to="/myorder">账号资料</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item>收货地址</el-dropdown-item>
                 <el-dropdown-item>售后服务</el-dropdown-item>
@@ -51,7 +51,7 @@
               </el-dropdown-menu>
             </el-dropdown>
             <span class="cart-num">
-              <i class="num">1</i>
+              <i class="num">0</i>
             </span>
           </div>
         </div>
@@ -123,6 +123,7 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.handlerScroll);
   },
+  beforeMount() {},
 };
 </script>
 

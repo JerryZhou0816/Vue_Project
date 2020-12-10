@@ -7,30 +7,22 @@
           <div class="userName">
             <input
               type="text"
-              v-model="admin"
-              name="admin"
+              v-model="userName"
+              name="userName"
               placeholder="账号"
-              v-validate="{ required: true, regex: /^1\d{3}$/ }"
-              :class="{ invalid: error.has('admin') }"
             />
           </div>
           <div class="userPassword">
-            <input
-              type="password"
-              v-model="password"
-              placeholder="密码"
-              v-vadilate="{ required: true, regex: /^\w{3,10}$/ }"
-              :class="{ invalid: errors.has('password') }"
-            />
+            <input type="password" v-model="password" placeholder="密码" />
           </div>
           <div class="userPassword2">
             <input type="password" v-model="password2" placeholder="确认密码" />
           </div>
           <div class="check">
-            <input type="text" />
+            <input type="text" v-model="code" placeholder="请输入验证码" />
           </div>
           <div class="pr">
-            <input type="checkbox" id="txt" />
+            <input type="checkbox" v-model="isChecked" id="txt" />
             <label for="txt">
               我已阅读并同意遵守
               <a href="javascript:;">法律声明</a>
@@ -38,14 +30,24 @@
               <a href="javascript:;">隐私条例</a>
             </label>
           </div>
-          <div class="register">
-            <input type="button" value="注册" />
-          </div>
+          <!-- <div class="register">
+            <input type="button" @click="register" value="注册" />
+          </div> -->
+          <!-- 注册按钮 -->
+          <el-button
+            type="primary"
+            style="height: 44px;width:100%;margin-bottom: 15px; font-size:18px"
+            @click="register"
+          >
+            <!-- :disabled="
+              !(password && password2 && userName && code && isChecked)
+            " -->
+            注册</el-button
+          >
           <div class="line"></div>
           <div class="footer">
             <span
               >如果您已拥有 XMall 账号，则可以在此
-
               <a href="javascript:;" @click="toLogin">登录</a>
             </span>
           </div>
@@ -60,25 +62,57 @@ export default {
   name: "Register",
   data() {
     return {
-      admin: "",
+      userName: "",
       password: "",
+      password2: "",
+      code: "",
+      isChecked: "",
     };
   },
   // 组件路由守卫
   // 在渲染该组件的对应的路由被confirm前调用不能获取该组件实例this
   // 因为当守卫执行前，组件实例还没有被创建
-  // beforeRouterEnter(to, from, next) {
-  //   next((vm) => {
-  //     if (vm.$store.state.users.usesrInfo.name) {
-  //       next("/");
-  //     } else {
-  //       next();
-  //     }
-  //   });
-  // },
+  beforeRouterEnter(to, from, next) {
+    next((vm) => {
+      if (vm.$store.state.users.usesrInfo.userName) {
+        next("/");
+      } else {
+        next();
+      }
+    });
+  },
   methods: {
     toLogin() {
       this.$router.push("/login");
+    },
+    //注册的回调函数
+    async register() {
+      let { userName, password, password2, code, isChecked } = this;
+      // 判断是账号密码是否为空
+      if (!userName || !password || !password2) {
+        this.$message.warning("账号密码不能为空");
+        return;
+      }
+      // 确认密码与原密码不一致
+      if (password !== password2) {
+        this.$message.warning("确认密码与原密码不一致");
+        return;
+      }
+      // 是否填写了验证码
+      if (!code.trim()) {
+        this.$message.warning("请完成验证");
+        return;
+      }
+      // 是否勾选同意相关注册协议
+      if (!isChecked) {
+        this.$message.warning("您未同意我们的相关注册协议");
+        return;
+      }
+      // 符合条件后延迟1s跳转到登录界面
+      this.$message.success("注册成功，即将跳转到登录页面");
+      setTimeout(() => {
+        this.$router.replace("/login");
+      }, 1000);
     },
   },
 };
@@ -89,11 +123,10 @@ export default {
   background: url(../../../static/images/bg_9b9dcb65ff@2x.png) repeat;
   background-attachment: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   .registerContainer {
     margin-top: 100px;
-
     .Container {
       width: 500px;
       height: 560px;
@@ -142,7 +175,6 @@ export default {
             border-radius: 5px;
             border: 1px solid #ccc;
             font-size: 18px;
-
             text-indent: 10px;
             &:focus {
               outline: none;
@@ -158,7 +190,6 @@ export default {
             border-radius: 5px;
             border: 1px solid #ccc;
             font-size: 18px;
-
             text-indent: 10px;
             &:focus {
               outline: none;
@@ -173,6 +204,8 @@ export default {
             height: 100%;
             border-radius: 5px;
             border: 1px solid #ccc;
+            text-indent: 10px;
+            font-size: 18px;
             &:focus {
               outline: none;
             }
@@ -209,23 +242,14 @@ export default {
             cursor: not-allowed;
             border: 1px solid #afafaf;
             border-radius: 4px;
-            font-size: 18px;
+            font-size: 17px;
             color: #fff;
-            background-color: #a9a9a9;
-            background-image: linear-gradient(180deg, #b8b8b8, #a9a9a9);
+            background-color: #33448b;
+            // background-image: linear-gradient(180deg, #b8b8b8, #a9a9a9);
 
             &:focus {
               outline: none;
             }
-            // &.active {
-            //   cursor: not-allowed;
-            //   border: 1px solid #afafaf;
-            //   border-radius: 4px;
-            //   font-size: 12px;
-            //   color: #fff;
-            //   background-color: #a9a9a9;
-            //   background-image: linear-gradient(180deg, #b8b8b8, #a9a9a9);
-            // }
           }
         }
         .line {
@@ -239,7 +263,6 @@ export default {
             margin: 20px 5px 0 0;
             width: auto;
             text-align: center;
-            color: #bbb;
             font-size: 14px;
             cursor: default;
             color: #999;
