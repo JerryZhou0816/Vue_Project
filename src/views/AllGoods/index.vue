@@ -5,47 +5,64 @@
       <!-- 头部搜索及面包屑结构 -->
       <div class="header">
         <div class="leftList">
-          <li class="active">综合排序</li>
-          <li>价格从低到高</li>
-          <li>价格从高到低</li>
+          <li :class="{ active: sortType === 1 }" @click="reset()">综合排序</li>
+          <li :class="{ active: sortType === 2 }" @click="sortPrice(1)">
+            价格从低到高
+          </li>
+          <li :class="{ active: sortType === 3 }" @click="sortPrice(-1)">
+            价格从高到低
+          </li>
         </div>
         <div class="input">
-          <input type="text" placeholder="价格" />
+          <input type="text" placeholder="价格" v-model="params.priceGt" />
           <span class="span">-</span>
-          <input type="text" placeholder="价格" />
-          <el-button type="primary" size="mini">确定</el-button>
+          <input type="text" placeholder="价格" v-model="params.priceLte" />
+          <el-button type="primary" size="mini" @click="reset">确定</el-button>
         </div>
       </div>
       <!-- 全部商品分类样式 -->
       <div class="goods clearfix">
         <div
           class="goodsItem"
-          @mouseenter="currentIndex =index"
+          @mouseenter="currentIndex = index"
           @mouseleave="leaveDiv"
           v-for="(goods, index) in allGoodsList"
           :key="goods.productId"
         >
-          <a href="javascript:;">
-            <img :src="goods.productImageBig" :alt="goods.productName" />
-          </a>
+          <img
+            :src="goods.productImageBig"
+            :alt="goods.productName"
+            @click="$router.push('/detail/' + goods.productId)"
+          />
+
           <h5>{{ goods.productName }}</h5>
           <h6>{{ goods.subTitle }}</h6>
           <div v-if="currentIndex === index">
-            <el-button size="mini" class="btnDetail" @click="toDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" >加入购物车</el-button>
+            <el-button
+              size="mini"
+              class="btnDetail"
+              @click="$router.push('/detail/' + goods.productId)"
+              >查看详情</el-button
+            >
+            <el-button
+              type="primary"
+              size="mini"
+              @click="$router.push('/shopcart/' + goods.productId)"
+              >加入购物车</el-button
+            >
           </div>
           <h3 v-else>￥{{ goods.salePrice }}</h3>
-          
         </div>
       </div>
     </div>
     <!-- 分页器 -->
-    <!-- @size-change="handleSizeChange"
-        @current-change="getAllGoodsList"     -->
+
     <el-pagination
-      :current-page="page"
-      :page-sizes="[5, 10, 15]"
-      :page-size="limit"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="params.page"
+      :page-sizes="[8, 12, 16, 20]"
+      :page-size="params.size"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
     >
@@ -60,46 +77,74 @@ export default {
       isShow: false, //控制按钮和价格的隐藏与显示
       allGoodsList: [], //存储全部商品分类的列表
       total: 0, //总条数
-      page: 1, //当前页
-      limit: 8, //每页显示条数
-      currentIndex:''  //
+      // page: 1, //当前页
+      // size: 10, //每页显示条数
+      currentIndex: "", //
+      // sort: "",
+      // priceGt: "",
+      // priceLte: "",
+      sortType: 1,
+      params: {
+        page: 1,
+        size: 8,
+        sort: "",
+        priceGt: "",
+        priceLte: "",
+        // id:id
+      },
     };
   },
   mounted() {
-    this.getAllGoodsList();
+    this.getAllGoodsList(this.params);
   },
 
   methods: {
     // 移出使按钮隐藏 价格显示
     leaveDiv() {
       this.isShow = !this.isShow;
-      this.currentIndex = ''
+      this.currentIndex = "";
     },
     // 发送请求获取全部商品分类数据
-    async getAllGoodsList(page = 1) {
-      this.page = page;
-      const result = await this.$API.reqAllGoodsList();
-      // console.log(result.data.result.data)
-      // console.log(result.data.result.total)
-
-      if (result.code === 200) {
-        this.allGoodsList = result.data.result.data;
-        this.total = result.data.result.total;
+    async getAllGoodsList(params) {
+      if(this.params.priceGt !== ''){
+        this.params.priceGt = Math.floor(this.params.priceGt)
+      }
+      if(this.params.priceLte !== ''){
+        this.params.priceLte = Math.floor(this.params.priceLte)
+      }
+      try {
+        const result = await this.$API.reqAllGoodsList(params);
+        if (result.code === 200) {
+          this.allGoodsList = result.result.data;
+          this.total = result.result.total;
+        }
+      } catch (error) {
+        this.$message.error("请求获取全部商品分类列表失败");
       }
     },
-    // 点击按钮跳转到详情页
-    toDetail(){
-      this.$router.push('/detail')
+    // 页码切换
+    handleCurrentChange(page) {
+      this.params.page = page;
+
+      this.getAllGoodsList(this.params);
     },
-    // 点击按钮跳转到购物车页面
-    // toShopCart(){
-    //   this.$router.push('/')
-    // }
-    //
-    // handleSizeChange(size){
-    //   this.limit = size
-    //   this.getAllGoodsList()
-    // }
+    //每页显示条数切换
+    handleSizeChange(size) {
+      this.params.size = size;
+      this.getAllGoodsList(this.params);
+    },
+    // 综合排序
+    reset() {
+      (this.sortType = 1), (this.params.page = 1);
+      this.getAllGoodsList(this.params);
+    },
+    // 根据价格排序
+    sortPrice(v) {
+      v === 1 ? this.sortType = 2: this.sortType = 3;
+      this.params.sort = v;
+      this.params.page = 1;
+      this.getAllGoodsList(this.params);
+    },
   },
 };
 </script>

@@ -1,8 +1,9 @@
 import Ajax from "@/ajax/Ajax";
 
-export const reqAllGoodsList = () => {
+export const reqAllGoodsList = (params) => {
   return Ajax({
-    url: '/getAllGoods',
+    url: '/goods/allGoods',
     method: "get",
+    params
   });
 }
