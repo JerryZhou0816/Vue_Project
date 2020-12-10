@@ -5,170 +5,66 @@
       <!-- 头部搜索及面包屑结构 -->
       <div class="header">
         <div class="leftList">
-          <li class="active">综合排序</li>
-          <li>价格从低到高</li>
-          <li>价格从高到低</li>
+          <li :class="{ active: sortType === 1 }" @click="reset()">综合排序</li>
+          <li :class="{ active: sortType === 2 }" @click="sortPrice(1)">
+            价格从低到高
+          </li>
+          <li :class="{ active: sortType === 3 }" @click="sortPrice(-1)">
+            价格从高到低
+          </li>
         </div>
         <div class="input">
-          <input type="text" placeholder="价格" />
-          <span>-</span>
-          <input type="text" placeholder="价格" />
-          <el-button type="primary" size="mini">确定</el-button>
+          <input type="text" placeholder="价格" v-model="params.priceGt" />
+          <span class="span">-</span>
+          <input type="text" placeholder="价格" v-model="params.priceLte" />
+          <el-button type="primary" size="mini" @click="reset">确定</el-button>
         </div>
       </div>
       <!-- 全部商品分类样式 -->
       <div class="goods clearfix">
         <div
           class="goodsItem"
-          @mouseenter="enterDiv"
+          @mouseenter="currentIndex = index"
           @mouseleave="leaveDiv"
-          translate=""
+          v-for="(goods, index) in allGoodsList"
+          :key="goods.productId"
         >
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini">加入购物车</el-button>
-          </div>
-        </div>
+          <img
+            :src="goods.productImageBig"
+            :alt="goods.productName"
+            @click="$router.push('/detail/' + goods.productId)"
+          />
 
-        <div class="goodsItem">
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" class="btnCart"
+          <h5>{{ goods.productName }}</h5>
+          <h6>{{ goods.subTitle }}</h6>
+          <div v-if="currentIndex === index">
+            <el-button
+              size="mini"
+              class="btnDetail"
+              @click="$router.push('/detail/' + goods.productId)"
+              >查看详情</el-button
+            >
+            <el-button
+              type="primary"
+              size="mini"
+              @click="addCart(goods.productId)"
               >加入购物车</el-button
             >
           </div>
-        </div>
-        <div class="goodsItem">
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" class="btnCart"
-              >加入购物车</el-button
-            >
-          </div>
-        </div>
-        <div class="goodsItem">
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" class="btnCart"
-              >加入购物车</el-button
-            >
-          </div>
-        </div>
-        <div class="goodsItem">
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" class="btnCart"
-              >加入购物车</el-button
-            >
-          </div>
-        </div>
-        <div class="goodsItem">
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" class="btnCart"
-              >加入购物车</el-button
-            >
-          </div>
-        </div>
-        <div class="goodsItem">
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" class="btnCart"
-              >加入购物车</el-button
-            >
-          </div>
-        </div>
-        <div class="goodsItem">
-          <a href="javascript:;">
-            <img
-              src="../../../static/images/1.jpg"
-              alt="Smartisan 牛津纺衬衫"
-            />
-          </a>
-          <h5>Smartisan 牛津纺衬衫</h5>
-          <h6>一件无拘无束的衬衫</h6>
-          <h3 v-if="!isShow">￥199.00</h3>
-          <div v-else>
-            <el-button size="mini" class="btnDetail">查看详情</el-button>
-            <el-button type="primary" size="mini" class="btnCart"
-              >加入购物车</el-button
-            >
-          </div>
+          <h3 v-else>￥{{ goods.salePrice }}</h3>
         </div>
       </div>
     </div>
     <!-- 分页器 -->
-    <!--  @size-change="handleSizeChange"
-        @current-change="handleCurrentChange" -->
+
     <el-pagination
-      :current-page="1"
-      :page-sizes="[10, 20, 50]"
-      :page-size="2"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="params.page"
+      :page-sizes="[8, 12, 16, 20]"
+      :page-size="params.size"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="15"
+      :total="total"
     >
     </el-pagination>
   </div>
@@ -178,15 +74,99 @@ export default {
   name: "",
   data() {
     return {
-      isShow: false,
+      isShow: false, //控制按钮和价格的隐藏与显示
+      allGoodsList: [], //存储全部商品分类的列表
+      total: 0, //总条数
+      // page: 1, //当前页
+      // size: 10, //每页显示条数
+      currentIndex: "", //
+      // sort: "",
+      // priceGt: "",
+      // priceLte: "",
+      sortType: 1,
+      productNum: 1,
+      productId: "",
+      params: {
+        page: 1,
+        size: 8,
+        sort: "",
+        priceGt: "",
+        priceLte: "",
+      },
     };
   },
+  mounted() {
+    this.getAllGoodsList(this.params);
+  },
+
   methods: {
-    enterDiv() {
-      this.isShow = !this.isShow;
-    },
+    // 移出使按钮隐藏 价格显示
     leaveDiv() {
       this.isShow = !this.isShow;
+      this.currentIndex = "";
+    },
+    // 发送请求获取全部商品分类数据
+    async getAllGoodsList(params) {
+      if (this.params.priceGt !== "") {
+        this.params.priceGt = Math.floor(this.params.priceGt);
+      }
+      if (this.params.priceLte !== "") {
+        this.params.priceLte = Math.floor(this.params.priceLte);
+      }
+      try {
+        const result = await this.$API.reqAllGoodsList(params);
+        if (result.code === 200) {
+          this.allGoodsList = result.result.data;
+          this.total = result.result.total;
+        }
+      } catch (error) {
+        this.$message.error("请求获取全部商品分类列表失败");
+      }
+    },
+    // 页码切换
+    handleCurrentChange(page) {
+      this.params.page = page;
+
+      this.getAllGoodsList(this.params);
+    },
+    //每页显示条数切换
+    handleSizeChange(size) {
+      this.params.size = size;
+      this.getAllGoodsList(this.params);
+    },
+    // 综合排序
+    reset() {
+      (this.sortType = 1), (this.params.page = 1);
+      this.getAllGoodsList(this.params);
+    },
+    // 根据价格排序
+    sortPrice(v) {
+      v === 1 ? (this.sortType = 2) : (this.sortType = 3);
+      this.params.sort = v;
+      this.params.page = 1;
+      this.getAllGoodsList(this.params);
+    },
+    //请求添加购物车
+    async addCart(productId) {
+      this.productId = productId;
+      let productNum = this.productNum;
+      let userId = 62;
+      const productInfo = {
+        productId,
+        productNum,
+        userId,
+      };
+      try {
+        const result = await this.$API.reqAddShopCart(productInfo);
+        if (result.code === 200) {
+          this.$message.success("添加购物车成功");
+          this.$router.push("/shopcart");
+        } else {
+          this.$message.error("添加购物车失败");
+        }
+      } catch (error) {
+        this.$message.error("请求添加购物车失败");
+      }
     },
   },
 };
@@ -240,7 +220,7 @@ export default {
   outline: none;
 }
 
-.header span {
+.header .span {
   float: left;
   line-height: 60px;
 }
@@ -311,5 +291,6 @@ export default {
   text-align: right;
   margin-top: 50px;
   margin-right: 180px;
+  padding-bottom: 100px;
 }
 </style>

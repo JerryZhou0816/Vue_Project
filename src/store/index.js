@@ -4,10 +4,12 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import home from "@/store/home";
+import detail from "@/store/detail";
 const state = {};
 const mutations = {};
 const actions = {};
 const getters = {};
+
 export default new Vuex.Store({
   state,
   mutations,
@@ -15,6 +17,6 @@ export default new Vuex.Store({
   getters,
   modules: {
     home,
+    detail,
   },
 });
-

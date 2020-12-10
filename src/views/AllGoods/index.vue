@@ -32,7 +32,7 @@
           <img
             :src="goods.productImageBig"
             :alt="goods.productName"
-            @click="$router.push('/detail/' + goods.productId)"
+            @click="toDetail(goods.productId)"
           />
 
           <h5>{{ goods.productName }}</h5>
@@ -41,7 +41,7 @@
             <el-button
               size="mini"
               class="btnDetail"
-              @click="$router.push('/detail/' + goods.productId)"
+              @click="toDetail(goods.productId)"
               >查看详情</el-button
             >
             <el-button
@@ -145,7 +145,7 @@ export default {
       this.params.sort = v;
       this.params.page = 1;
       this.getAllGoodsList(this.params);
-    }, 
+    },
     //请求添加购物车
     async addCart(productId) {
       this.productId = productId;
@@ -167,6 +167,9 @@ export default {
       } catch (error) {
         this.$message.error("请求添加购物车失败");
       }
+    },
+    toDetail(productId) {
+      this.$router.push({ path: "/detail", query: { productId } });
     },
   },
 };
