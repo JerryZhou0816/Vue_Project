@@ -23,7 +23,11 @@
     <!-- 推荐列表 -->
     <div class="recommendContainer">
       <ul class="recommendList" v-if="banner[0]">
-        <li v-for="(item, index) in banner[0].panelContents" :key="item.id">
+        <li
+          v-for="(item, index) in banner[0].panelContents"
+          :key="item.id"
+          @click="toDetail(item.productId)"
+        >
           <a href="##">
             <img :src="item.picUrl" alt="" />
           </a>
@@ -57,6 +61,11 @@ export default {
   },
   computed: {
     ...mapGetters(["banner"]),
+  },
+  methods: {
+    toDetail(productId) {
+      this.$router.push({ path: "/detail", query: { productId } });
+    },
   },
 };
 </script>
