@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 引入vuex
-import store from "../store";
+import store from "@/store";
 
 // 加载动画插件
 import nprogress from "nprogress";
@@ -16,6 +16,13 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   // 开启加载动画
   nprogress.start();
+
+ //每次请求带上用户的登录标识
+ // let token = store.state.users.userInfo.token
+
+ let token = '81d45a8c-b606-447a-9e6a-f94f5728f82f'
+ config.headers.token = token
+
   return config;
 });
 

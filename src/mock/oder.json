@@ -1,0 +1,102 @@
+{
+  "success": true,
+  "message": "success",
+  "code": 200,
+  "timestamp": 1607517550553,
+  "result": {
+    "total": 1,
+    "data": [
+      {
+        "orderId": 160751623419569,
+        "orderTotal": 5272.00,
+        "addressInfo": {
+          "addressId": null,
+          "userId": null,
+          "userName": "马保国",
+          "tel": "15130300202",
+          "streetName": "河北省保定市马上到",
+          "isDefault": null
+        },
+        "goodsList": [
+          {
+            "productId": 150642571432843,
+            "salePrice": 1999.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "坚果 3",
+            "productImg": "https://resource.smartisan.com/resource/718bcecced0df1cd23bbdb9cc1f70b7d.png"
+          },
+          {
+            "productId": 150642571432839,
+            "salePrice": 29.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "坚果 3 TPU 软胶透明保护套",
+            "productImg": "https://resource.smartisan.com/resource/5e4b1feddb13639550849f12f6b2e202.jpg"
+          },
+          {
+            "productId": 816448,
+            "salePrice": 2799.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "极米无屏电视 CC",
+            "productImg": "http://image.smartisanos.cn/resource/41cb562a47d4831e199ed7e2057f3b61.jpg"
+          },
+          {
+            "productId": 691300,
+            "salePrice": 199.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "Smartisan 快充移动电源 10000mAh",
+            "productImg": "http://image.smartisanos.cn/resource/0540778097a009364f2dcbb8c5286451.jpg"
+          },
+          {
+            "productId": 150642571432838,
+            "salePrice": 79.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "坚果 3 绒布国旗保护套",
+            "productImg": "https://resource.smartisan.com/resource/63ea40e5c64db1c6b1d480c48fe01272.jpg"
+          },
+          {
+            "productId": 738388,
+            "salePrice": 39.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "Smartisan 原装 Type-C 数据线",
+            "productImg": "http://image.smartisanos.cn/resource/c79a73ffc6f8e782160d978f49f543dc.jpg"
+          },
+          {
+            "productId": 150642571432842,
+            "salePrice": 79.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "坚果 3 \"足迹\"背贴 乐高创始人出生",
+            "productImg": "https://resource.smartisan.com/resource/abb6986430536cd9365352b434f3c568.jpg"
+          },
+          {
+            "productId": 150642571432841,
+            "salePrice": 49.00,
+            "productNum": 1,
+            "limitNum": null,
+            "checked": null,
+            "productName": "坚果 3 TPU 软胶保护套",
+            "productImg": "https://resource.smartisan.com/resource/b899d9b82c4bc2710492a26af021d484.jpg"
+          }
+        ],
+        "orderStatus": "0",
+        "createDate": "2020-12-09 20:17",
+        "closeDate": null,
+        "finishDate": null,
+        "payDate": null
+      }
+    ]
+  }
+}
